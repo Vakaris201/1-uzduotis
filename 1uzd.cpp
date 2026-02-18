@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <string> 
 #include <vector>
+#include <algorithm>
 
 using std::string;
 using std::vector;
@@ -12,6 +13,7 @@ using std::left;
 using std::endl;
 using std::fixed;
 using std::setprecision;
+
 
 struct studentas {
     string vardas = "A";
@@ -50,13 +52,29 @@ int main(){
 
 void outputas(const vector <studentas> &grupe)
 {
+    cout << "Isvesti vidurki ar mediana? (1 - vidurkis, 2 - mediana) ";
+    int pasirinkimas;
+    cin >> pasirinkimas;
+    if(pasirinkimas == 1){
     cout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Vid.)" << endl;
     for(auto A: grupe){
     cout << left << setw(10) << A.vardas << left << setw(20) << A.pavarde;
-    //for(auto a: A.paz){
-    //    cout << setw(3) << a;
-    //}
-    //cout << setw(10) << A.egzam;
     cout << setw(15) << fixed << setprecision(2) << A.rez << endl;
+    }
+    }
+    else{
+    cout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Med.)" << endl;
+    for(auto A: grupe){
+    cout << left << setw(10) << A.vardas << left << setw(20) << A.pavarde;
+
+    sort(A.paz.begin(), A.paz.end());
+    if(A.paz.size() % 2 == 0) {
+        A.rez = (A.paz[A.paz.size() / 2 - 1] + A.paz[A.paz.size() / 2]) / 2.0 * 0.4 + A.egzam * 0.6;
+    }
+    else {
+        A.rez = A.paz[A.paz.size() / 2] * 0.4 + A.egzam * 0.6;
+    }
+    cout << setw(15) << fixed << setprecision(2) << A.rez << endl;
+    }
     }
 }
