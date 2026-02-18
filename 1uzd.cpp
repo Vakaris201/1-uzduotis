@@ -7,7 +7,11 @@ using std::string;
 using std::vector;
 using std::cout;
 using std::cin;
-
+using std::setw;
+using std::left;
+using std::endl;
+using std::fixed;
+using std::setprecision;
 
 struct studentas {
     string vardas = "A";
@@ -16,6 +20,8 @@ struct studentas {
     int egzam;
     double rez;
 };
+
+void outputas(const vector <studentas> &grupe);
 
 int main(){
     studentas A;
@@ -38,5 +44,19 @@ int main(){
     A.rez = sum * 1.0 / (A.paz.size() * 1.0) * 0.4 + A.egzam * 0.6;
     grupe.push_back(A);
     A.paz.clear();
+    }
+    outputas(grupe);
+}
+
+void outputas(const vector <studentas> &grupe)
+{
+    cout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Vid.)" << endl;
+    for(auto A: grupe){
+    cout << left << setw(10) << A.vardas << left << setw(20) << A.pavarde;
+    //for(auto a: A.paz){
+    //    cout << setw(3) << a;
+    //}
+    //cout << setw(10) << A.egzam;
+    cout << setw(15) << fixed << setprecision(2) << A.rez << endl;
     }
 }
