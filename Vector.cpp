@@ -22,6 +22,8 @@ struct studentas {
     double rez;
 };
 
+void outputas(vector<studentas>& A, int m);
+
 int main() {
     vector<studentas> A;
     int temp, sum, m = 0;
@@ -48,5 +50,37 @@ int main() {
             cin >> testi;
             if(testi != 't' && testi != 'T') break;
         }
+    }
+    outputas(A, m);
+}
+void outputas(vector<studentas>& A, int m) {
+    int pasirinkimas;
+    cout << "Isvesti vidurki ar mediana? (1 - vidurkis, 2 - mediana) ";
+    cin >> pasirinkimas;
+    if(pasirinkimas == 1) {
+        cout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Vid.)" << endl;
+        for(int i = 0; i < m; i++) {
+            cout << left << setw(10) << A[i].vardas << left << setw(20) << A[i].pavarde;
+            cout << setw(15) << fixed << setprecision(2) << A[i].rez << endl;
+        }
+    }
+    else if(pasirinkimas == 2) {
+        cout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Med.)" << endl;
+        for(int i = 0; i < m; i++) {
+            sort(A[i].paz.begin(), A[i].paz.end());
+            double mediana;
+            if(A[i].paz.size() % 2 == 0) {
+                mediana = (A[i].paz[A[i].paz.size() / 2 - 1] + A[i].paz[A[i].paz.size() / 2]) / 2.0;
+            } else {
+                mediana = A[i].paz[A[i].paz.size() / 2];
+            }
+            A[i].rez = mediana * 0.4 + A[i].egzam * 0.6;
+            cout << left << setw(10) << A[i].vardas << left << setw(20) << A[i].pavarde;
+            cout << setw(15) << fixed << setprecision(2) << A[i].rez << endl;
+        }
+    }
+    else {
+        cout << "Pabandykite dar karta" << endl;
+        outputas(A, m);
     }
 }
