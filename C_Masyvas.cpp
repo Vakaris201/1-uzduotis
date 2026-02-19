@@ -38,12 +38,12 @@ int main() {
         cout << "Iveskite egzamino pazymi: ";
         cin >> A[m].egzam;
         A[m].rez = sum * 1.0/ (A[m].paz_skaicius * 1.0) * 0.4 + A[m].egzam * 0.6;
+        m++;
         if(m >= 0) {
             cout << "Ar norėtumėte pridėti dar vieną studentą? (t/n): ";
             cin >> testi;
             if(testi != 't' && testi != 'T') break;
         }
-        m++;
         if(m >= maxstud) break;
     }
     outputas(A, m);
@@ -55,14 +55,14 @@ void outputas(studentas A[], int m) {
     cin >> pasirinkimas;
     if(pasirinkimas == 1) {
         cout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Vid.)" << endl;
-        for(int i = 0; i <= m; i++) {
+        for(int i = 0; i < m; i++) {
             cout << left << setw(10) << A[i].vardas << left << setw(20) << A[i].pavarde;
             cout << setw(15) << fixed << setprecision(2) << A[i].rez << endl;
         }
     }
     else if(pasirinkimas == 2) {
         cout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Med.)" << endl;
-        for(int i = 0; i <= m; i++) {
+        for(int i = 0; i < m; i++) {
             sort(A[i].paz, A[i].paz + A[i].paz_skaicius);
             double mediana;
             if(A[i].paz_skaicius % 2 == 0) {
