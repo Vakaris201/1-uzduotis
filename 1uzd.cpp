@@ -40,6 +40,11 @@ int main(){
     for(int i = 0; i < n; i++){
         cout << "Iveskite " << i+1 << " pazymi is " << n << ": ";
         cin >> temp;
+        if(temp < 0 || temp > 10) {
+            cout << "Pazymys turi būti tarp 1 ir 10. Pabandykite dar kartą." << endl;
+            i--;
+            continue;
+        }
         A.paz.push_back(temp);
         sum += temp;
     }
@@ -48,6 +53,13 @@ int main(){
     A.rez = sum * 1.0 / (n * 1.0) * 0.4 + A.egzam * 0.6;
     grupe.push_back(A);
     A.paz.clear();
+    }
+    else if(n == 0){
+        cout << "Iveskite egzamino pazymi: ";
+        cin >> A.egzam;
+        A.rez = A.egzam * 0.6;
+        grupe.push_back(A);
+        A.paz.clear();
     }
     else{
         cout << "Pabandykite dar karta" << endl;
@@ -73,12 +85,16 @@ void outputas(const vector <studentas> &grupe)
     cout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Med.)" << endl;
     for(auto A: grupe){
     cout << left << setw(10) << A.vardas << left << setw(20) << A.pavarde;
-    sort(A.paz.begin(), A.paz.end());
-    if(A.paz.size() % 2 == 0){
-        A.rez = (A.paz[A.paz.size() / 2 - 1] + A.paz[A.paz.size() / 2]) / 2.0 * 0.4 + A.egzam * 0.6;
-    }
-    else{
-        A.rez = A.paz[A.paz.size() / 2] * 0.4 + A.egzam * 0.6;
+    if (A.paz.empty()) {
+        A.rez = A.egzam * 0.6;
+    } else {
+        sort(A.paz.begin(), A.paz.end());
+        if(A.paz.size() % 2 == 0){
+            A.rez = (A.paz[A.paz.size() / 2 - 1] + A.paz[A.paz.size() / 2]) / 2.0 * 0.4 + A.egzam * 0.6;
+        }
+        else{
+            A.rez = A.paz[A.paz.size() / 2] * 0.4 + A.egzam * 0.6;
+        }
     }
     cout << setw(15) << fixed << setprecision(2) << A.rez << endl;
     }

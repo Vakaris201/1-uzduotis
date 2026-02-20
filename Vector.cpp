@@ -37,12 +37,20 @@ int main() {
             cout << "Iveskite " << S.paz.size() + 1 << " semestro pazymi (0 - baigti): ";
             cin >> temp;
             if(temp == 0) break;
+            else if(temp < 0 || temp > 10) {
+                cout << "Pazymys turi būti tarp 1 ir 10. Pabandykite dar kartą." << endl;
+                continue;
+            }
             sum += temp;
             S.paz.push_back(temp);
         }
         cout << "Iveskite egzamino pazymi: ";
         cin >> S.egzam;
-        S.rez = sum * 1.0 / (S.paz.size() * 1.0) * 0.4 + S.egzam * 0.6;
+        if (S.paz.empty()) {
+            S.rez = S.egzam * 0.6;
+        } else {
+            S.rez = sum * 1.0 / (S.paz.size() * 1.0) * 0.4 + S.egzam * 0.6;
+        }
         A.push_back(S);
         m++;
         if(m >= 0) {
@@ -67,14 +75,18 @@ void outputas(vector<studentas>& A, int m) {
     else if(pasirinkimas == 2) {
         cout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Med.)" << endl;
         for(int i = 0; i < m; i++) {
-            sort(A[i].paz.begin(), A[i].paz.end());
-            double mediana;
-            if(A[i].paz.size() % 2 == 0) {
-                mediana = (A[i].paz[A[i].paz.size() / 2 - 1] + A[i].paz[A[i].paz.size() / 2]) / 2.0;
+            if (A[i].paz.empty()) {
+                A[i].rez = A[i].egzam * 0.6;
             } else {
-                mediana = A[i].paz[A[i].paz.size() / 2];
+                sort(A[i].paz.begin(), A[i].paz.end());
+                double mediana;
+                if(A[i].paz.size() % 2 == 0) {
+                    mediana = (A[i].paz[A[i].paz.size() / 2 - 1] + A[i].paz[A[i].paz.size() / 2]) / 2.0;
+                } else {
+                    mediana = A[i].paz[A[i].paz.size() / 2];
+                }
+                A[i].rez = mediana * 0.4 + A[i].egzam * 0.6;
             }
-            A[i].rez = mediana * 0.4 + A[i].egzam * 0.6;
             cout << left << setw(10) << A[i].vardas << left << setw(20) << A[i].pavarde;
             cout << setw(15) << fixed << setprecision(2) << A[i].rez << endl;
         }
