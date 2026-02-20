@@ -41,7 +41,7 @@ int main(){
         cout << "Iveskite " << i+1 << " pazymi is " << n << ": ";
         cin >> temp;
         if(temp < 0 || temp > 10) {
-            cout << "Pazymys turi būti tarp 1 ir 10. Pabandykite dar kartą." << endl;
+            cout << "Pazymys turi būti tarp 1 ir 10. Pabandykite dar karta." << endl;
             i--;
             continue;
         }
@@ -87,7 +87,8 @@ void outputas(const vector <studentas> &grupe)
     cout << left << setw(10) << A.vardas << left << setw(20) << A.pavarde;
     if (A.paz.empty()) {
         A.rez = A.egzam * 0.6;
-    } else {
+    } 
+    else {
         sort(A.paz.begin(), A.paz.end());
         if(A.paz.size() % 2 == 0){
             A.rez = (A.paz[A.paz.size() / 2 - 1] + A.paz[A.paz.size() / 2]) / 2.0 * 0.4 + A.egzam * 0.6;

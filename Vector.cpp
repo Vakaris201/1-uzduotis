@@ -38,7 +38,7 @@ int main() {
             cin >> temp;
             if(temp == 0) break;
             else if(temp < 0 || temp > 10) {
-                cout << "Pazymys turi būti tarp 1 ir 10. Pabandykite dar kartą." << endl;
+                cout << "Pazymys turi būti tarp 1 ir 10. Pabandykite dar karta." << endl;
                 continue;
             }
             sum += temp;
@@ -48,7 +48,8 @@ int main() {
         cin >> S.egzam;
         if (S.paz.empty()) {
             S.rez = S.egzam * 0.6;
-        } else {
+        } 
+        else {
             S.rez = sum * 1.0 / (S.paz.size() * 1.0) * 0.4 + S.egzam * 0.6;
         }
         A.push_back(S);
@@ -77,7 +78,8 @@ void outputas(vector<studentas>& A, int m) {
         for(int i = 0; i < m; i++) {
             if (A[i].paz.empty()) {
                 A[i].rez = A[i].egzam * 0.6;
-            } else {
+            } 
+            else {
                 sort(A[i].paz.begin(), A[i].paz.end());
                 double mediana;
                 if(A[i].paz.size() % 2 == 0) {
