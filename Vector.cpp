@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <algorithm> 
+#include <cctype>
 
 using std::string;
 using std::vector;
@@ -26,26 +27,80 @@ void outputas(vector<studentas>& A, int m);
 
 int main() {
     vector<studentas> A;
-    int temp, sum, m = 0;
+    int temp, sum, m = 0, x = 0;
     char testi;
+    while(true) {
+        cout << "Kiek yra studentu? ";
+        cin >> m;
+        if(cin.fail()) {
+            cout << "Neteinga ivestis. Iveskite skaiciu. " << endl;
+            cin.clear();
+            cin.ignore(10000, '\n');
+        }
+        else if(m <= 0) {
+            cout << "Studentu skaicius turi būti teigiamas. Pabandykite dar karta." << endl;
+            continue;
+        }
+        else break;
+    }
     while(true) {
         studentas S;
         cout << "Iveskite varda ir pavarde: ";
         cin >> S.vardas >> S.pavarde;
+        bool validname = true;
+        for(char c : S.vardas) {
+            if(!isalpha(c)) {
+                validname = false;
+                break;
+            }
+        }
+        if(!validname) {
+            cout << "Vardas turi buti sudarytas tik is raidziu. Pabandykite dar karta." << endl;
+            continue;
+        }
+        for(char c : S.pavarde) {
+            if(!isalpha(c)) {
+                validname = false;
+                break;
+            }
+        }
+        if(!validname) {
+            cout << "Pavarde turi buti sudaryta tik is raidziu. Pabandykite dar karta." << endl;
+            continue;
+        }
         sum = 0;
         while(true) {
             cout << "Iveskite " << S.paz.size() + 1 << " semestro pazymi (0 - baigti): ";
             cin >> temp;
+            if(cin.fail()) {
+                cout << "Neteisinga ivestis. Iveskite skaiciu tarp 1 ir 10." << endl;
+                cin.clear();
+                cin.ignore(10000, '\n');
+                continue;
+            }
             if(temp == 0) break;
-            else if(temp < 0 || temp > 10) {
-                cout << "Pazymys turi būti tarp 1 ir 10. Pabandykite dar karta." << endl;
+            else if(temp < 1 || temp > 10) {
+                cout << "Neteisinga ivestis. Iveskite skaiciu tarp 1 ir 10." << endl;
                 continue;
             }
             sum += temp;
             S.paz.push_back(temp);
         }
-        cout << "Iveskite egzamino pazymi: ";
-        cin >> S.egzam;
+        while(true) {
+            cout << "Iveskite egzamino pazymi: ";
+            cin >> S.egzam;
+            if(cin.fail()) {
+                cout << "Neteisinga ivestis. Iveskite skaiciu tarp 1 ir 10." << endl;
+                cin.clear();
+                cin.ignore(10000, '\n');
+                continue;
+            }
+           if(S.egzam < 1 || S.egzam > 10) {
+                cout << "Neteisinga ivestis. Iveskite skaiciu tarp 1 ir 10." << endl;
+                continue;
+            }
+            break;
+        }
         if (S.paz.empty()) {
             S.rez = S.egzam * 0.6;
         } 
@@ -53,19 +108,30 @@ int main() {
             S.rez = sum * 1.0 / (S.paz.size() * 1.0) * 0.4 + S.egzam * 0.6;
         }
         A.push_back(S);
-        m++;
-        if(m >= 0) {
-            cout << "Ar norėtumėte pridėti dar vieną studentą? (t/n): ";
-            cin >> testi;
-            if(testi != 't' && testi != 'T') break;
-        }
+        x++;
+        if(x >= m) break;
     }
     outputas(A, m);
 }
 void outputas(vector<studentas>& A, int m) {
     int pasirinkimas;
-    cout << "Isvesti vidurki ar mediana? (1 - vidurkis, 2 - mediana) ";
-    cin >> pasirinkimas;
+    while(true) {
+        cout << "Isvesti vidurki ar mediana? (1 - vidurkis, 2 - mediana) ";
+        cin >> pasirinkimas;
+        if(cin.fail()) {
+            cout << "Neteisinga ivestis! Iveskite 1 arba 2." << endl;
+            cin.clear();
+            cin.ignore(10000, '\n');
+            continue;
+        }
+        else if(pasirinkimas == 1 || pasirinkimas == 2) {
+            break;
+        }
+        else {
+            cout << "Neteisinga ivestis! Iveskite 1 arba 2." << endl;
+            continue;
+        }
+    }
     if(pasirinkimas == 1) {
         cout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Vid.)" << endl;
         for(int i = 0; i < m; i++) {
@@ -92,9 +158,5 @@ void outputas(vector<studentas>& A, int m) {
             cout << left << setw(10) << A[i].vardas << left << setw(20) << A[i].pavarde;
             cout << setw(15) << fixed << setprecision(2) << A[i].rez << endl;
         }
-    }
-    else {
-        cout << "Pabandykite dar karta" << endl;
-        outputas(A, m);
     }
 }
