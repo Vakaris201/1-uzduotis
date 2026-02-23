@@ -5,12 +5,12 @@
 #include <cctype>
 using namespace std;
 
-const int maxpaz = 100;
+const int maxpaz = 5;
 
 struct studentas {
     string vardas;
     string pavarde;
-    int paz[maxpaz];
+    int *paz = new int[maxpaz];
     int paz_skaicius;
     int egzam;
     double rez;
@@ -19,7 +19,7 @@ struct studentas {
 void outputas(studentas A[], int m);
 
 int main() {
-    int temp, sum, m = 0;
+    int temp, sum, m = 0, n, x = 0;
     while(true) {
         cout << "Kiek yra studentu? ";
         cin >> m;
@@ -35,7 +35,6 @@ int main() {
         else break;
     }
     studentas *A = new studentas[m];
-    int x = 0;
     while(true) {
         cout << "Iveskite varda ir pavarde: ";
         cin >> A[x].vardas >> A[x].pavarde;
@@ -79,6 +78,16 @@ int main() {
             sum += temp;
             A[x].paz[A[x].paz_skaicius] = temp;
             A[x].paz_skaicius++;
+            n = maxpaz;
+            if(A[x].paz_skaicius >= n) {
+                int *temp_paz = new int[n * 2];
+                for(int i = 0; i < A[x].paz_skaicius; i++) {
+                    temp_paz[i] = A[x].paz[i];
+                }
+                delete[] A[x].paz;
+                A[x].paz = temp_paz;
+                n *= 2;
+            }
         }
         while(true) {
             cout << "Iveskite egzamino pazymi: ";
@@ -101,10 +110,36 @@ int main() {
         else {
             A[x].rez = sum * 1.0 / (A[x].paz_skaicius * 1.0) * 0.4 + A[x].egzam * 0.6;
         }
+        string choice;
+        while(true) {
+        if(x < m - 1) break;
+        else {
+        cout << "Ar noretumet ivesti dar viena studenta? (t/n) ";
+        cin >> choice;
+        if(choice == "t" || choice == "T") {
+            studentas *temp = new studentas[m + 1];
+            for(int i = 0; i < m; i++) {
+                temp[i] = A[i];
+            }
+            delete[] A;
+            A = temp;
+            m++;
+            break;
+        }
+        else if(choice == "n" || choice == "N") break;
+        else {
+            cout << "Neteisinga ivestis. Pabandykite dar karta." << endl;
+            continue;
+        }
+        }
+        }
         x++;
         if(x >= m) break;
     }
     outputas(A, m);
+    for(int i = 0; i < m; i++) {
+        delete[] A[i].paz;
+    }
     delete[] A;
 }
 void outputas(studentas A[], int m) {
