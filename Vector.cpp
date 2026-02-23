@@ -108,6 +108,23 @@ int main() {
             S.rez = sum * 1.0 / (S.paz.size() * 1.0) * 0.4 + S.egzam * 0.6;
         }
         A.push_back(S);
+        string choice;
+        while(true) {
+        if(x < m - 1) break;
+        else {
+        cout << "Ar noretumet ivesti dar viena studenta? (t/n) ";
+        cin >> choice;
+        if(choice == "t" || choice == "T") {
+            m++;
+            break;
+        }
+        else if(choice == "n" || choice == "N") break;
+        else {
+            cout << "Neteisinga ivestis. Pabandykite dar karta." << endl;
+            continue;
+        }
+        }
+        }
         x++;
         if(x >= m) break;
     }
