@@ -6,6 +6,7 @@
 #include <cctype>
 #include <ctime>
 #include "Zmones.h"
+#include <fstream>
 
 using std::string;
 using std::vector;
@@ -16,6 +17,8 @@ using std::left;
 using std::endl;
 using std::fixed;
 using std::setprecision;
+using std::ifstream;
+using std::swap;
 
 struct studentas {
     string vardas;
@@ -31,6 +34,26 @@ int main() {
     srand(time(0));
     vector<studentas> A;
     int temp, m = 0, x = 0, eiga;
+    string f_choice;
+    cout << "Ar noretumet skaityti duomenis is failo? (t/n) ";
+    cin >> f_choice;
+    if(f_choice == "t" || f_choice == "T") {
+        ifstream fin("kursiokai.txt");
+        cin.ignore(10000, '\n');
+        studentas S;
+        while(fin >> S.vardas >> S.pavarde) {
+            int pazymys;
+            for(int i = 0; i < 5; i++) {
+                fin >> pazymys;
+                S.paz.push_back(pazymys);
+            }
+            fin >> S.egzam;
+            A.push_back(S);
+            m++;
+        }
+        outputas(A, m);
+    }
+    else {
     cout << "Iveskite eiga: " << endl;
     while(true) {
         cout << "1 - ranka " << endl;
@@ -165,6 +188,7 @@ int main() {
         if(x >= m) break;
     }
     outputas(A, m);
+    }
 }
 void outputas(vector<studentas>& A, int m) {
     int pasirinkimas;
@@ -186,7 +210,6 @@ void outputas(vector<studentas>& A, int m) {
         }
     }
     if(pasirinkimas == 1) {
-        cout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Vid.)" << endl;
         for(int i = 0; i < m; i++) {
             if (A[i].paz.empty()) {
                 A[i].rez = A[i].egzam * 0.6;
@@ -198,12 +221,9 @@ void outputas(vector<studentas>& A, int m) {
                 }
             A[i].rez = sum / (A[i].paz.size() * 1.0) * 0.4 + A[i].egzam * 0.6;
             }
-            cout << left << setw(10) << A[i].vardas << left << setw(20) << A[i].pavarde;
-            cout << setw(15) << fixed << setprecision(2) << A[i].rez << endl;
         }
     }
     else if(pasirinkimas == 2) {
-        cout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Med.)" << endl;
         for(int i = 0; i < m; i++) {
             if (A[i].paz.empty()) {
                 A[i].rez = A[i].egzam * 0.6;
@@ -219,8 +239,6 @@ void outputas(vector<studentas>& A, int m) {
                 }
                 A[i].rez = mediana * 0.4 + A[i].egzam * 0.6;
             }
-            cout << left << setw(10) << A[i].vardas << left << setw(20) << A[i].pavarde;
-            cout << setw(15) << fixed << setprecision(2) << A[i].rez << endl;
         }
     }
 }
