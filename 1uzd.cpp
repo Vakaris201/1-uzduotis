@@ -18,6 +18,7 @@ using std::endl;
 using std::fixed;
 using std::setprecision;
 using std::ifstream;
+using std::ofstream;
 using std::swap;
 
 struct studentas {
@@ -241,4 +242,16 @@ void outputas(vector<studentas>& A, int m) {
             }
         }
     }
+    ofstream fout("rezultatai.txt");
+    if(pasirinkimas == 1) {
+        fout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Vid.)" << endl;
+    }
+    else {
+        fout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Med.)" << endl;
+    }
+    for(int i = 0; i < m; i++) {
+        fout << left << setw(15) << A[i].vardas << left << setw(20) << A[i].pavarde;
+        fout << setw(10) << fixed << setprecision(2) << A[i].rez << endl;
+    }
+    cout <<"Rezultatai faile - rezultatai.txt" << endl;
 }
