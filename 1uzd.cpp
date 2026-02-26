@@ -7,6 +7,7 @@
 #include <ctime>
 #include "Zmones.h"
 #include <fstream>
+#include <sstream>
 
 using std::string;
 using std::vector;
@@ -19,7 +20,10 @@ using std::fixed;
 using std::setprecision;
 using std::ifstream;
 using std::ofstream;
+using std::getline;
+using std::sort;
 using std::swap;
+using std::stringstream;
 
 struct studentas {
     string vardas;
@@ -35,23 +39,36 @@ int main() {
     srand(time(0));
     vector<studentas> A;
     int temp, m = 0, x = 0, eiga;
-    string f_choice;
+    string f_choice, line;
     cout << "Ar noretumet skaityti duomenis is failo? (t/n) ";
     cin >> f_choice;
     if(f_choice == "t" || f_choice == "T") {
-        ifstream fin("kursiokai.txt");
-        cin.ignore(10000, '\n');
-        studentas S;
-        while(fin >> S.vardas >> S.pavarde) {
+        string filename;
+        cout << "Iveskite failo pavadinima: ";
+        cin >> filename;
+        ifstream fin(filename);
+        if(!fin) {
+            cout << "Nepavyko atidaryti failo " << filename << endl;
+            return 0;
+        }
+        A.reserve(1000000);
+        getline(fin, line);
+        while(getline(fin, line)) {
+            stringstream ss(line);
+            studentas S;
+            ss >> S.vardas >> S.pavarde;
             int pazymys;
-            for(int i = 0; i < 5; i++) {
-                fin >> pazymys;
+            while(ss >> pazymys) {
                 S.paz.push_back(pazymys);
             }
-            fin >> S.egzam;
+            if(!S.paz.empty()) {
+                S.egzam = S.paz.back();
+                S.paz.pop_back();
+            }
             A.push_back(S);
             m++;
         }
+        fin.close();
         outputas(A, m);
     }
     else {
@@ -242,6 +259,33 @@ void outputas(vector<studentas>& A, int m) {
             }
         }
     }
+    cout << "Kaip surusiuoti rezultatus? (1 - pagal varda, 2 - pagal pavarde, 3 - pagal galutini bala) ";
+    int sort_choice;
+    while(true) {
+        cin >> sort_choice;
+        if(cin.fail() || sort_choice < 1 || sort_choice > 3) {
+            cout << "Neteisinga ivestis. Iveskite 1, 2 arba 3. " << endl;
+            cin.clear();
+            cin.ignore(10000, '\n');
+            continue;
+        }
+        else break;
+    }
+    if(sort_choice == 1) {
+        sort(A.begin(), A.end(), [](const studentas& a, const studentas& b) {
+            return a.vardas < b.vardas;
+        });
+    }
+    else if(sort_choice == 2) {
+        sort(A.begin(), A.end(), [](const studentas& a, const studentas& b) {
+            return a.pavarde < b.pavarde;
+        });
+    }
+    else if(sort_choice == 3) {
+        sort(A.begin(), A.end(), [](const studentas& a, const studentas& b) {
+            return a.rez > b.rez;
+        });
+    }
     ofstream fout("rezultatai.txt");
     if(pasirinkimas == 1) {
         fout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Vid.)" << endl;
@@ -254,4 +298,5 @@ void outputas(vector<studentas>& A, int m) {
         fout << setw(10) << fixed << setprecision(2) << A[i].rez << endl;
     }
     cout <<"Rezultatai faile - rezultatai.txt" << endl;
+    fout.close();
 }
