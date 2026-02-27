@@ -8,6 +8,7 @@
 #include "Zmones.h"
 #include <fstream>
 #include <sstream>
+#include <chrono>
 
 using std::string;
 using std::vector;
@@ -24,6 +25,8 @@ using std::getline;
 using std::sort;
 using std::swap;
 using std::stringstream;
+using std::chrono::high_resolution_clock;
+using std::chrono::duration;
 
 struct studentas {
     string vardas;
@@ -33,10 +36,23 @@ struct studentas {
     double rez;
 };
 
+bool compare_vardas(const studentas& a, const studentas& b) {
+    return a.vardas < b.vardas;
+}
+
+bool compare_pavarde(const studentas& a, const studentas& b) {
+    return a.pavarde < b.pavarde;
+}
+
+bool compare_rez(const studentas& a, const studentas& b) {
+    return a.rez > b.rez;
+}
+
 void outputas(vector<studentas>& A, int m);
 
 int main() {
     srand(time(0));
+    std::ios::sync_with_stdio(false);
     vector<studentas> A;
     int temp, m = 0, x = 0, eiga;
     string f_choice, line;
@@ -272,31 +288,55 @@ void outputas(vector<studentas>& A, int m) {
         else break;
     }
     if(sort_choice == 1) {
-        sort(A.begin(), A.end(), [](const studentas& a, const studentas& b) {
-            return a.vardas < b.vardas;
-        });
+        sort(A.begin(), A.end(), compare_vardas);
     }
     else if(sort_choice == 2) {
-        sort(A.begin(), A.end(), [](const studentas& a, const studentas& b) {
-            return a.pavarde < b.pavarde;
-        });
-    }
-    else if(sort_choice == 3) {
-        sort(A.begin(), A.end(), [](const studentas& a, const studentas& b) {
-            return a.rez > b.rez;
-        });
-    }
-    ofstream fout("rezultatai.txt");
-    if(pasirinkimas == 1) {
-        fout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Vid.)" << endl;
+        sort(A.begin(), A.end(), compare_pavarde);
     }
     else {
-        fout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Med.)" << endl;
+        sort(A.begin(), A.end(), compare_rez);
     }
-    for(int i = 0; i < m; i++) {
-        fout << left << setw(15) << A[i].vardas << left << setw(20) << A[i].pavarde;
-        fout << setw(10) << fixed << setprecision(2) << A[i].rez << endl;
+    cout << "Kaip norite isvesti rezultatus? (1 - i ekrana, 2 - i faila) ";
+    int output_choice;
+    while(true) {
+        cin >> output_choice;
+        if(cin.fail() || output_choice < 1 || output_choice > 2) {
+            cout << "Neteisinga ivestis. Iveskite 1 arba 2. " << endl;
+            cin.clear();
+            cin.ignore(10000, '\n');
+            continue;
+        }
+        else break;
     }
-    cout <<"Rezultatai faile - rezultatai.txt" << endl;
-    fout.close();
+    auto start = high_resolution_clock::now();
+    if(output_choice == 1) {
+        if(pasirinkimas == 1) {
+            cout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Vid.)" << endl;
+        }
+        else {
+            cout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Med.)" << endl;
+        }
+        for(int i = 0; i < m; i++) {
+            cout << left << setw(15) << A[i].vardas << left << setw(20) << A[i].pavarde;
+            cout << setw(10) << fixed << setprecision(2) << A[i].rez << endl;
+        }
+        auto end = high_resolution_clock::now();
+        duration<double> diff = end - start;
+        cout << "Duomenu isvedimas uztruko: " << diff.count() << " sekundziu." << endl;
+    }
+    else {
+        ofstream fout("rezultatai.txt");
+        if(pasirinkimas == 1) {
+            fout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Vid.)" << endl;
+        }
+        else {
+            fout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Med.)" << endl;
+        }
+        for(int i = 0; i < m; i++) {
+            fout << left << setw(15) << A[i].vardas << left << setw(20) << A[i].pavarde;
+            fout << setw(10) << fixed << setprecision(2) << A[i].rez << endl;
+        }
+        cout <<"Rezultatai faile - rezultatai.txt" << endl;
+        fout.close();
+    }
 }
