@@ -8,7 +8,7 @@
 #include <fstream>
 #include <sstream>
 #include <chrono>
-#include <typeinfo>
+#include <cstdlib>
 #include "Zmones.h"
 #include "Funkcijos.h"
 
@@ -25,7 +25,6 @@ using std::ifstream;
 using std::ofstream;
 using std::getline;
 using std::sort;
-using std::swap;
 using std::stringstream;
 using std::chrono::high_resolution_clock;
 using std::chrono::duration;
@@ -34,6 +33,65 @@ void clearInput() {
     cout << "Neteisinga ivestis. ";
     cin.clear();
     cin.ignore(10000, '\n');
+}
+void vidurkis(studentas &S) {
+    if (S.paz.empty()) {
+        S.rez = S.egzam * EGZAM_kof;
+    }    
+    else {
+        double sum = 0;
+        for(int j = 0; j < S.paz.size(); j++) {
+            sum += S.paz[j];
+        }
+        S.rez = sum / (S.paz.size() * 1.0) * ND_kof + S.egzam * EGZAM_kof;
+    }
+}
+void mediana(studentas &S) {
+    if (S.paz.empty()) {
+        S.rez = S.egzam * EGZAM_kof;
+    } 
+    else {
+        sort(S.paz.begin(), S.paz.end());
+        double mediana;
+        if(S.paz.size() % 2 == 0) {
+            mediana = (S.paz[S.paz.size() / 2 - 1] + S.paz[S.paz.size() / 2]) / 2.0;
+        } 
+        else {
+            mediana = S.paz[S.paz.size() / 2];
+        }
+        S.rez = mediana * ND_kof + S.egzam * EGZAM_kof;
+    }
+}
+void rusiavimas(vector<studentas> &A, int sort_choice) {
+    if(sort_choice == 1) {
+        sort(A.begin(), A.end(), [](studentas& a, studentas& b) {
+            return compare(a.vardas, b.vardas);
+        });
+    }
+    else if(sort_choice == 2) {
+        sort(A.begin(), A.end(), [](studentas& a, studentas& b) {
+            return compare(a.pavarde, b.pavarde);
+        });
+    }
+    else {
+        sort(A.begin(), A.end(), [](studentas& a, studentas& b) {
+            return !compare(a.rez, b.rez);
+        });
+    }
+}
+bool string_checker(string &str) {
+    bool validname = true;
+    for(char c : str) {
+        if(!isalpha(c)) {
+            validname = false;
+            break;
+        }
+    }
+    if(!validname) {
+        cout << "Vardas ir pavarde turi buti sudaryti tik is raidziu. Pabandykite dar karta." << endl;
+        return false;
+    }
+    return true;
 }
 
 int main() {
@@ -109,27 +167,11 @@ int main() {
         if(eiga == 1 || eiga == 2) {
             cout << "Iveskite varda ir pavarde: ";
             cin >> S.vardas >> S.pavarde;
-            bool validname = true;
-            for(char c : S.vardas) {
-                if(!isalpha(c)) {
-                    validname = false;
-                    break;
-                }
-            }
-            if(!validname) {
-                cout << "Vardas turi buti sudarytas tik is raidziu. Pabandykite dar karta." << endl;
-                continue;
-            }
-            for(char c : S.pavarde) {
-                if(!isalpha(c)) {
-                    validname = false;
-                    break;
-                }
-            }
-            if(!validname) {
-                cout << "Pavarde turi buti sudaryta tik is raidziu. Pabandykite dar karta." << endl;
-                continue;
-            }
+            bool validname;
+            validname = string_checker(S.vardas);
+            if(!validname) continue;
+            validname = string_checker(S.pavarde);
+            if(!validname) continue;
         }
         else if(eiga == 3) {
             zmogus z = gen();
@@ -188,7 +230,7 @@ int main() {
                 cout << "Ar noretumet ivesti dar viena studenta? (t/n) ";
                 cin >> choice;
                 if(choice == "t" || choice == "T") {
-                    index++;
+                    stud_skaicius++;
                     break;
                 }
                 else if(choice == "n" || choice == "N") {
@@ -212,7 +254,7 @@ void outputas(vector<studentas>& A, int stud_skaicius) {
     while(true) {
         cout << "Isvesti vidurki ar mediana? (1 - vidurkis, 2 - mediana) ";
         cin >> pasirinkimas;
-        if(cin.fail()) {
+        if(cin.fail() || pasirinkimas < 1 || pasirinkimas > 2) {
             clearInput();
             cout << "Iveskite 1 arba 2." << endl;
             continue;
@@ -220,42 +262,15 @@ void outputas(vector<studentas>& A, int stud_skaicius) {
         else if(pasirinkimas == 1 || pasirinkimas == 2) {
             break;
         }
-        else {
-            clearInput();
-            cout << "Iveskite 1 arba 2." << endl;
-            continue;
-        }
     }
     if(pasirinkimas == 1) {
         for(int i = 0; i < stud_skaicius; i++) {
-            if (A[i].paz.empty()) {
-                A[i].rez = A[i].egzam * EGZAM_kof;
-            }    
-            else {
-                double sum = 0;
-                for(int j = 0; j < A[i].paz.size(); j++) {
-                    sum += A[i].paz[j];
-                }
-            A[i].rez = sum / (A[i].paz.size() * 1.0) * ND_kof + A[i].egzam * EGZAM_kof;
-            }
+            vidurkis(A[i]);
         }
     }
     else if(pasirinkimas == 2) {
         for(int i = 0; i < stud_skaicius; i++) {
-            if (A[i].paz.empty()) {
-                A[i].rez = A[i].egzam * EGZAM_kof;
-            } 
-            else {
-                sort(A[i].paz.begin(), A[i].paz.end());
-                double mediana;
-                if(A[i].paz.size() % 2 == 0) {
-                    mediana = (A[i].paz[A[i].paz.size() / 2 - 1] + A[i].paz[A[i].paz.size() / 2]) / 2.0;
-                } 
-                else {
-                    mediana = A[i].paz[A[i].paz.size() / 2];
-                }
-                A[i].rez = mediana * ND_kof + A[i].egzam * EGZAM_kof;
-            }
+            mediana(A[i]);
         }
     }
     cout << "Kaip surusiuoti rezultatus? (1 - pagal varda, 2 - pagal pavarde, 3 - pagal galutini bala) ";
@@ -269,21 +284,7 @@ void outputas(vector<studentas>& A, int stud_skaicius) {
         }
         else break;
     }
-    if(sort_choice == 1) {
-        sort(A.begin(), A.end(), [](studentas& a, studentas& b) {
-            return compare(a.vardas, b.vardas);
-        });
-    }
-    else if(sort_choice == 2) {
-        sort(A.begin(), A.end(), [](studentas& a, studentas& b) {
-            return compare(a.pavarde, b.pavarde);
-        });
-    }
-    else {
-        sort(A.begin(), A.end(), [](studentas& a, studentas& b) {
-            return !compare(a.rez, b.rez);
-        });
-    }
+    rusiavimas(A, sort_choice);
     cout << "Kaip norite isvesti rezultatus? (1 - i ekrana, 2 - i faila) ";
     int output_choice;
     while(true) {
