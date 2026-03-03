@@ -30,11 +30,17 @@ using std::stringstream;
 using std::chrono::high_resolution_clock;
 using std::chrono::duration;
 
+void clearInput() {
+    cout << "Neteisinga ivestis. ";
+    cin.clear();
+    cin.ignore(10000, '\n');
+}
+
 int main() {
     srand(time(0));
     std::ios::sync_with_stdio(false);
     vector<studentas> A;
-    int temp, m = 0, x = 0;
+    int temp, stud_skaicius = 0, index = 0;
     string f_choice, line;
     cout << "Ar noretumet skaityti duomenis is failo? (t/n) ";
     cin >> f_choice;
@@ -62,10 +68,10 @@ int main() {
                 S.paz.pop_back();
             }
             A.push_back(S);
-            m++;
+            stud_skaicius++;
         }
         fin.close();
-        outputas(A, m);
+        outputas(A, stud_skaicius);
     }
     else {
     int eiga;
@@ -78,9 +84,8 @@ int main() {
         cout << "Jusu pasirinkimas: ";
         cin >> eiga;
         if(cin.fail() || eiga < 1 || eiga > 4) {
-            cout << "Neteisinga ivestis. Iveskite skaiciu nuo 1 iki 4. " << endl;
-            cin.clear();
-            cin.ignore(10000, '\n');
+            clearInput();
+            cout << "Iveskite skaiciu nuo 1 iki 4. " << endl;
             continue;
         }
         else if(eiga == 4) {
@@ -91,11 +96,10 @@ int main() {
     }
     while(true) {
         cout << "Kiek yra studentu? ";
-        cin >> m;
-        if(cin.fail() || m <= 0) {
-            cout << "Neteinga ivestis. Iveskite teigiama skaiciu. " << endl;
-            cin.clear();
-            cin.ignore(10000, '\n');
+        cin >> stud_skaicius;
+        if(cin.fail() || stud_skaicius <= 0) {
+            clearInput();
+            cout << "Iveskite teigiama skaiciu. " << endl;
             continue;
         }
         else break;
@@ -139,9 +143,8 @@ int main() {
                 cin >> temp;
                 if(temp == 0) break;
                 else if(cin.fail() || temp < 1 || temp > 10) {
-                    cout << "Neteisinga ivestis. Iveskite skaiciu tarp 1 ir 10." << endl;
-                    cin.clear();
-                    cin.ignore(10000, '\n');
+                    clearInput();
+                    cout << "Iveskite skaiciu tarp 1 ir 10." << endl;
                     continue;
                 }
                 else S.paz.push_back(temp); 
@@ -150,9 +153,8 @@ int main() {
                 cout << "Iveskite egzamino pazymi: ";
                 cin >> S.egzam;
                 if(cin.fail() || S.egzam < 1 || S.egzam > 10) {
-                    cout << "Neteisinga ivestis. Iveskite skaiciu tarp 1 ir 10." << endl;
-                    cin.clear();
-                    cin.ignore(10000, '\n');
+                    clearInput();
+                    cout << "Iveskite skaiciu tarp 1 ir 10." << endl;
                     continue;
                 }
                 else break;
@@ -164,9 +166,8 @@ int main() {
                 cout << "Kiek pazymiu sugeneruoti? ";
                 cin >> paz_kiek;
                 if(cin.fail() || paz_kiek < 0) {
-                    cout << "Neteisinga ivestis. Iveskite teigiama sveika skaiciu." << endl;
-                    cin.clear();
-                    cin.ignore(10000, '\n');
+                    clearInput();
+                    cout << "Iveskite teigiama sveika skaiciu." << endl;
                     continue;
                 }
                 for(int i = 0; i < paz_kiek; i++) {
@@ -182,66 +183,67 @@ int main() {
         A.push_back(S);
         string choice;
         while(true) {
-            if(x < m - 1) break;
+            if(index < stud_skaicius - 1) break;
             else {
                 cout << "Ar noretumet ivesti dar viena studenta? (t/n) ";
                 cin >> choice;
                 if(choice == "t" || choice == "T") {
-                    m++;
+                    index++;
                     break;
                 }
                 else if(choice == "n" || choice == "N") {
                     break;
                 }
                 else {
-                    cout << "Neteisinga ivestis. Pabandykite dar karta." << endl;
+                    clearInput();
+                    cout << "Pabandykite dar karta." << endl;
                     continue;
                 }
             }
         }
-        x++;
-        if(x >= m) break;
+        index++;
+        if(index >= stud_skaicius) break;
     }
-    outputas(A, m);
+    outputas(A, stud_skaicius);
     }
 }
-void outputas(vector<studentas>& A, int m) {
+void outputas(vector<studentas>& A, int stud_skaicius) {
     int pasirinkimas;
     while(true) {
         cout << "Isvesti vidurki ar mediana? (1 - vidurkis, 2 - mediana) ";
         cin >> pasirinkimas;
         if(cin.fail()) {
-            cout << "Neteisinga ivestis! Iveskite 1 arba 2." << endl;
-            cin.clear();
-            cin.ignore(10000, '\n');
+            clearInput();
+            cout << "Iveskite 1 arba 2." << endl;
             continue;
         }
         else if(pasirinkimas == 1 || pasirinkimas == 2) {
             break;
         }
         else {
-            cout << "Neteisinga ivestis! Iveskite 1 arba 2." << endl;
+            clearInput();
+            cout << "Iveskite 1 arba 2." << endl;
             continue;
         }
     }
     if(pasirinkimas == 1) {
-        for(int i = 0; i < m; i++) {
+        for(int i = 0; i < stud_skaicius; i++) {
             if (A[i].paz.empty()) {
-                A[i].rez = A[i].egzam * 0.6;
+                A[i].rez = A[i].egzam * EGZAM_kof;
             }    
             else {
                 double sum = 0;
                 for(int j = 0; j < A[i].paz.size(); j++) {
                     sum += A[i].paz[j];
                 }
-            A[i].rez = sum / (A[i].paz.size() * 1.0) * 0.4 + A[i].egzam * 0.6;
+            A[i].rez = sum / (A[i].paz.size() * 1.0) * ND_kof + A[i].egzam * EGZAM_kof;
             }
         }
     }
     else if(pasirinkimas == 2) {
-        for(int i = 0; i < m; i++) {
+        for(int i = 0; i < stud_skaicius; i++) {
             if (A[i].paz.empty()) {
-                A[i].rez = A[i].egzam * 0.6;
+                A[i].rez = A[i].egzam * EGZAM_kof;
             } 
             else {
                 sort(A[i].paz.begin(), A[i].paz.end());
@@ -252,7 +254,7 @@ void outputas(vector<studentas>& A, int m) {
                 else {
                     mediana = A[i].paz[A[i].paz.size() / 2];
                 }
-                A[i].rez = mediana * 0.4 + A[i].egzam * 0.6;
+                A[i].rez = mediana * ND_kof + A[i].egzam * EGZAM_kof;
             }
         }
     }
@@ -261,9 +263,8 @@ void outputas(vector<studentas>& A, int m) {
     while(true) {
         cin >> sort_choice;
         if(cin.fail() || sort_choice < 1 || sort_choice > 3) {
-            cout << "Neteisinga ivestis. Iveskite 1, 2 arba 3. " << endl;
-            cin.clear();
-            cin.ignore(10000, '\n');
+            clearInput();
+            cout << "Iveskite 1, 2 arba 3. " << endl;
             continue;
         }
         else break;
@@ -288,9 +289,8 @@ void outputas(vector<studentas>& A, int m) {
     while(true) {
         cin >> output_choice;
         if(cin.fail() || output_choice < 1 || output_choice > 2) {
-            cout << "Neteisinga ivestis. Iveskite 1 arba 2. " << endl;
-            cin.clear();
-            cin.ignore(10000, '\n');
+            clearInput();
+            cout << "Iveskite 1 arba 2. " << endl;
             continue;
         }
         else break;
@@ -303,7 +303,7 @@ void outputas(vector<studentas>& A, int m) {
         else {
             cout << left << setw(15) << "Vardas" << left << setw(20) << "Pavarde" << setw(10) << "Galutinis (Med.)" << endl;
         }
-        for(int i = 0; i < m; i++) {
+        for(int i = 0; i < stud_skaicius; i++) {
             cout << left << setw(15) << A[i].vardas << left << setw(20) << A[i].pavarde;
             cout << setw(10) << fixed << setprecision(2) << A[i].rez << endl;
         }
@@ -319,7 +319,7 @@ void outputas(vector<studentas>& A, int m) {
         else {
             fout << left << setw(15) << "Vardas" << left << setw(20) << "Pavarde" << setw(10) << "Galutinis (Med.)" << endl;
         }
-        for(int i = 0; i < m; i++) {
+        for(int i = 0; i < stud_skaicius; i++) {
             fout << left << setw(15) << A[i].vardas << left << setw(20) << A[i].pavarde;
             fout << setw(10) << fixed << setprecision(2) << A[i].rez << endl;
         }

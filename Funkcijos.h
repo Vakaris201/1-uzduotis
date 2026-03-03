@@ -7,6 +7,10 @@
 
 using std::vector;
 using std::string;
+using std::cin;
+
+const double ND_kof = 0.4;
+const double EGZAM_kof = 0.6;
 
 struct studentas {
     string vardas;
@@ -21,6 +25,7 @@ bool compare(T &a,T &b) {
     return a < b;
 }
 
-void outputas(vector<studentas>& A, int m);
+void clearInput();
+void outputas(vector<studentas>& A, int stud_skaicius);
 
 #endif
