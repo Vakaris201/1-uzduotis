@@ -5,10 +5,12 @@
 #include <algorithm> 
 #include <cctype>
 #include <ctime>
-#include "Zmones.h"
 #include <fstream>
 #include <sstream>
 #include <chrono>
+#include <typeinfo>
+#include "Zmones.h"
+#include "Funkcijos.h"
 
 using std::string;
 using std::vector;
@@ -28,33 +30,11 @@ using std::stringstream;
 using std::chrono::high_resolution_clock;
 using std::chrono::duration;
 
-struct studentas {
-    string vardas;
-    string pavarde;
-    vector<int> paz;
-    int egzam;
-    double rez;
-};
-
-bool compare_vardas(const studentas& a, const studentas& b) {
-    return a.vardas < b.vardas;
-}
-
-bool compare_pavarde(const studentas& a, const studentas& b) {
-    return a.pavarde < b.pavarde;
-}
-
-bool compare_rez(const studentas& a, const studentas& b) {
-    return a.rez > b.rez;
-}
-
-void outputas(vector<studentas>& A, int m);
-
 int main() {
     srand(time(0));
     std::ios::sync_with_stdio(false);
     vector<studentas> A;
-    int temp, m = 0, x = 0, eiga;
+    int temp, m = 0, x = 0;
     string f_choice, line;
     cout << "Ar noretumet skaityti duomenis is failo? (t/n) ";
     cin >> f_choice;
@@ -88,6 +68,7 @@ int main() {
         outputas(A, m);
     }
     else {
+    int eiga;
     cout << "Iveskite eiga: " << endl;
     while(true) {
         cout << "1 - ranka " << endl;
@@ -288,13 +269,19 @@ void outputas(vector<studentas>& A, int m) {
         else break;
     }
     if(sort_choice == 1) {
-        sort(A.begin(), A.end(), compare_vardas);
+        sort(A.begin(), A.end(), [](studentas& a, studentas& b) {
+            return compare(a.vardas, b.vardas);
+        });
     }
     else if(sort_choice == 2) {
-        sort(A.begin(), A.end(), compare_pavarde);
+        sort(A.begin(), A.end(), [](studentas& a, studentas& b) {
+            return compare(a.pavarde, b.pavarde);
+        });
     }
     else {
-        sort(A.begin(), A.end(), compare_rez);
+        sort(A.begin(), A.end(), [](studentas& a, studentas& b) {
+            return !compare(a.rez, b.rez);
+        });
     }
     cout << "Kaip norite isvesti rezultatus? (1 - i ekrana, 2 - i faila) ";
     int output_choice;
@@ -311,10 +298,10 @@ void outputas(vector<studentas>& A, int m) {
     auto start = high_resolution_clock::now();
     if(output_choice == 1) {
         if(pasirinkimas == 1) {
-            cout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Vid.)" << endl;
+            cout << left << setw(15) << "Vardas" << left << setw(20) << "Pavarde" << setw(10) << "Galutinis (Vid.)" << endl;
         }
         else {
-            cout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Med.)" << endl;
+            cout << left << setw(15) << "Vardas" << left << setw(20) << "Pavarde" << setw(10) << "Galutinis (Med.)" << endl;
         }
         for(int i = 0; i < m; i++) {
             cout << left << setw(15) << A[i].vardas << left << setw(20) << A[i].pavarde;
@@ -327,16 +314,20 @@ void outputas(vector<studentas>& A, int m) {
     else {
         ofstream fout("rezultatai.txt");
         if(pasirinkimas == 1) {
-            fout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Vid.)" << endl;
+            fout << left << setw(15) << "Vardas" << left << setw(20) << "Pavarde" << setw(10) << "Galutinis (Vid.)" << endl;
         }
         else {
-            fout << left << setw(10) << "Vardas" << left << setw(20) << "Pavarde" << setw(15) << "Galutinis (Med.)" << endl;
+            fout << left << setw(15) << "Vardas" << left << setw(20) << "Pavarde" << setw(10) << "Galutinis (Med.)" << endl;
         }
         for(int i = 0; i < m; i++) {
             fout << left << setw(15) << A[i].vardas << left << setw(20) << A[i].pavarde;
             fout << setw(10) << fixed << setprecision(2) << A[i].rez << endl;
         }
-        cout <<"Rezultatai faile - rezultatai.txt" << endl;
+        cout << "Rezultatai faile - rezultatai.txt" << endl;
+        auto end = high_resolution_clock::now();
+        duration<double> diff = end - start;
+        cout << "Duomenu isvedimas uztruko: " << diff.count() << " sekundziu." << endl;
         fout.close();
     }
 }
+
