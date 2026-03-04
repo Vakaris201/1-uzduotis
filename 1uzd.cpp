@@ -78,137 +78,102 @@ int main() {
         outputas(A, stud_skaicius);
     }
     else {
-    int eiga;
-    cout << "Iveskite eiga: " << endl;
-    while(true) {
+        int eiga;
+        cout << "Iveskite eiga: " << endl;
         cout << "1 - ranka " << endl;
         cout << "2 - generuoti tik pazymius " << endl;
         cout << "3 - generuoti studentu vardus, pavardes ir pazymius " << endl;
         cout << "4 - baigti darba " << endl;
-        cout << "Jusu pasirinkimas: ";
-        cin >> eiga;
-        if(cin.fail() || eiga < 1 || eiga > 4) {
-            clearInput();
-            cout << "Iveskite skaiciu nuo 1 iki 4. " << endl;
-            continue;
-        }
-        else if(eiga == 4) {
+        eiga = getInput<int,1,4>(
+            "Jusu pasirinkimas: ",
+            "Iveskite skaiciu nuo 1 iki 4."
+        );
+        if(eiga == 4) {
             cout << "Darbas baigtas.";
             return 0;
         }
-        else break;
-    }
-    while(true) {
-        cout << "Kiek yra studentu? ";
-        cin >> stud_skaicius;
-        if(cin.fail() || stud_skaicius <= 0) {
-            clearInput();
-            cout << "Iveskite teigiama skaiciu. " << endl;
-            continue;
-        }
-        else break;
-    }
-    while(true) {
-        studentas S;
-        if(eiga == 1 || eiga == 2) {
-            cout << "Iveskite varda ir pavarde: ";
-            cin >> S.vardas >> S.pavarde;
-            bool validname;
-            validname = string_checker(S.vardas);
-            if(!validname) continue;
-            validname = string_checker(S.pavarde);
-            if(!validname) continue;
-        }
-        else if(eiga == 3) {
-            zmogus z = gen();
-            S.vardas = z.vardas;
-            S.pavarde = z.pavarde;
-            cout << "Sugeneruotas zmogus: " << S.vardas << " " << S.pavarde << endl;
-        }
-        if(eiga == 1) {
-            while(true) {
-                cout << "Iveskite " << S.paz.size() + 1 << " semestro pazymi (0 - baigti): ";
-                cin >> temp;
-                if(temp == 0) break;
-                else if(cin.fail() || temp < 1 || temp > 10) {
-                    clearInput();
-                    cout << "Iveskite skaiciu tarp 1 ir 10." << endl;
-                    continue;
-                }
-                else S.paz.push_back(temp); 
+        stud_skaicius = getInput<int,1>(
+            "Kiek yra studentu? ", 
+            "Iveskite teigiama skaiciu."
+        );
+        while(true) {
+            studentas S;
+            if(eiga == 1 || eiga == 2) {
+                cout << "Iveskite varda ir pavarde: ";
+                cin >> S.vardas >> S.pavarde;
+                bool validname;
+                validname = string_checker(S.vardas);
+                if(!validname) continue;
+                validname = string_checker(S.pavarde);
+                if(!validname) continue;
             }
-            while(true) {
-                cout << "Iveskite egzamino pazymi: ";
-                cin >> S.egzam;
-                if(cin.fail() || S.egzam < 1 || S.egzam > 10) {
-                    clearInput();
-                    cout << "Iveskite skaiciu tarp 1 ir 10." << endl;
-                    continue;
-                }
-                else break;
+            else if(eiga == 3) {
+                zmogus z = gen();
+                S.vardas = z.vardas;
+                S.pavarde = z.pavarde;
+                cout << "Sugeneruotas zmogus: " << S.vardas << " " << S.pavarde << endl;
             }
-        }
-        else if(eiga == 2 || eiga == 3) {
-            while(true) {
+            if(eiga == 1) {
+                while(true) {
+                    temp = getInput<int,0,10>(
+                        "Iveskite " + std::to_string(S.paz.size() + 1) + " semestro pazymi (0 - baigti): ",
+                        "Iveskite skaiciu tarp 0 ir 10"
+                    );
+                    if(temp == 0) break;
+                    S.paz.push_back(temp);
+                }
+                S.egzam = getInput<int,1,10>(
+                    "Iveskite egzamino pazymi: ", 
+                    "Iveskite skaiciu tarp 1 ir 10."
+                );
+            }
+            else if(eiga == 2 || eiga == 3) {
                 int paz_kiek;
-                cout << "Kiek pazymiu sugeneruoti? ";
-                cin >> paz_kiek;
-                if(cin.fail() || paz_kiek < 0) {
-                    clearInput();
-                    cout << "Iveskite teigiama sveika skaiciu." << endl;
-                    continue;
-                }
+                paz_kiek = getInput<int,0>(
+                    "Kiek pazymiu sugeneruoti? ",
+                    "Iveskite teigiama sveika skaiciu."
+                );
                 for(int i = 0; i < paz_kiek; i++) {
                     temp = rand() % 10 + 1;
                     cout << i+1 << " Sugeneruotas pazymys: " << temp << endl;
                     S.paz.push_back(temp);
                 }
-                break;
+                S.egzam = rand() % 10 + 1;
+                cout << "Sugeneruotas egzamino pazymys: " << S.egzam << endl;
             }
-            S.egzam = rand() % 10 + 1;
-            cout << "Sugeneruotas egzamino pazymys: " << S.egzam << endl;
-        }
-        A.push_back(S);
-        string choice;
-        while(true) {
-            if(index < stud_skaicius - 1) break;
-            else {
-                cout << "Ar noretumet ivesti dar viena studenta? (t/n) ";
-                cin >> choice;
-                if(choice == "t" || choice == "T") {
-                    stud_skaicius++;
-                    break;
-                }
-                else if(choice == "n" || choice == "N") {
-                    break;
-                }
+            A.push_back(S);
+            string choice;
+            while(true) {
+                if(index < stud_skaicius - 1) break;
                 else {
-                    clearInput();
-                    cout << "Pabandykite dar karta." << endl;
-                    continue;
+                    cout << "Ar noretumet ivesti dar viena studenta? (t/n) ";
+                    cin >> choice;
+                    if(choice == "t" || choice == "T") {
+                        stud_skaicius++;
+                        break;
+                    }
+                    else if(choice == "n" || choice == "N") {
+                        break;
+                    }
+                    else {
+                        clearInput();
+                        cout << "Pabandykite dar karta." << endl;
+                        continue;
+                    }
                 }
             }
+            index++;
+            if(index >= stud_skaicius) break;
         }
-        index++;
-        if(index >= stud_skaicius) break;
-    }
-    outputas(A, stud_skaicius);
+        outputas(A, stud_skaicius);
     }
 }
 void outputas(vector<studentas>& A, int stud_skaicius) {
     int pasirinkimas;
-    while(true) {
-        cout << "Isvesti vidurki ar mediana? (1 - vidurkis, 2 - mediana) ";
-        cin >> pasirinkimas;
-        if(cin.fail() || pasirinkimas < 1 || pasirinkimas > 2) {
-            clearInput();
-            cout << "Iveskite 1 arba 2." << endl;
-            continue;
-        }
-        else if(pasirinkimas == 1 || pasirinkimas == 2) {
-            break;
-        }
-    }
+    pasirinkimas = getInput<int,1,2>(
+        "Isvesti vidurki ar mediana? (1 - vidurkis, 2 - mediana) ",
+        "Iveskite 1 arba 2."
+    );
     if(pasirinkimas == 1) {
         for(int i = 0; i < stud_skaicius; i++) {
             vidurkis(A[i]);
@@ -219,29 +184,17 @@ void outputas(vector<studentas>& A, int stud_skaicius) {
             mediana(A[i]);
         }
     }
-    cout << "Kaip surusiuoti rezultatus? (1 - pagal varda, 2 - pagal pavarde, 3 - pagal galutini bala) ";
     int sort_choice;
-    while(true) {
-        cin >> sort_choice;
-        if(cin.fail() || sort_choice < 1 || sort_choice > 3) {
-            clearInput();
-            cout << "Iveskite 1, 2 arba 3. " << endl;
-            continue;
-        }
-        else break;
-    }
+    sort_choice = getInput<int,1,3>(
+        "Kaip surusiuoti rezultatus? (1 - pagal varda, 2 - pagal pavarde, 3 - pagal galutini bala) ",
+        "Iveskite 1, 2 arba 3."
+    );
     rusiavimas(A, sort_choice);
-    cout << "Kaip norite isvesti rezultatus? (1 - i ekrana, 2 - i faila) ";
     int output_choice;
-    while(true) {
-        cin >> output_choice;
-        if(cin.fail() || output_choice < 1 || output_choice > 2) {
-            clearInput();
-            cout << "Iveskite 1 arba 2. " << endl;
-            continue;
-        }
-        else break;
-    }
+    output_choice = getInput<int,1,2>(
+        "Kaip norite isvesti rezultatus? (1 - i ekrana, 2 - i faila) ",
+        "Iveskite 1 arba 2."
+    );
     auto start = high_resolution_clock::now();
     if(output_choice == 1) {
         if(pasirinkimas == 1) {
