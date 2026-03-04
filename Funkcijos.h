@@ -26,6 +26,10 @@ bool compare(T &a,T &b) {
 }
 
 void clearInput();
-void outputas(vector<studentas>& A, int stud_skaicius);
+void vidurkis(studentas &S);
+void mediana(studentas &S);
+void rusiavimas(vector<studentas> &A, int sort_choice);
+bool string_checker(string &str);
+void outputas(vector<studentas> &A, int stud_skaicius);
 
 #endif
