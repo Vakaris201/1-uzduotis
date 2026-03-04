@@ -29,7 +29,9 @@ using std::stringstream;
 using std::chrono::high_resolution_clock;
 using std::chrono::duration;
 
+
 int main() {
+    system("dir *.txt");
     srand(time(0));
     std::ios::sync_with_stdio(false);
     vector<studentas> A;
@@ -39,13 +41,22 @@ int main() {
     cin >> f_choice;
     if(f_choice == "t" || f_choice == "T") {
         string filename;
-        cout << "Iveskite failo pavadinima: ";
-        cin >> filename;
-        ifstream fin(filename);
-        if(!fin) {
-            cout << "Nepavyko atidaryti failo " << filename << endl;
-            return 0;
+        while(true) {
+            cout << "Iveskite failo pavadinima: ";
+            cin >> filename;
+            try {
+                ifstream test(filename);
+                if(!test) {
+                    throw std::runtime_error("Failas nerastas.");
+                }
+                break;
+            }
+            catch (std::exception& e) {
+                cout << "Klaida: " << e.what() << " Pabandykite dar karta." << endl;
+                continue;
+            }
         }
+        ifstream fin(filename);
         A.reserve(1000000);
         getline(fin, line);
         while(getline(fin, line)) {

@@ -25,7 +25,7 @@ void vidurkis(studentas &S) {
         for(int j = 0; j < S.paz.size(); j++) {
             sum += S.paz[j];
         }
-        S.rez = sum / (S.paz.size() * 1.0) * ND_kof + S.egzam * EGZAM_kof;
+        S.rez = sum / S.paz.size() * ND_kof + S.egzam * EGZAM_kof;
     }
 }
 
@@ -59,7 +59,7 @@ void rusiavimas(vector<studentas> &A, int sort_choice) {
     }
     else {
         sort(A.begin(), A.end(), [](studentas& a, studentas& b) {
-            return !compare(a.rez, b.rez);
+            return compare(b.rez, a.rez);
         });
     }
 }
