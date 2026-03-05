@@ -80,17 +80,23 @@ string raide_choice(string prompt1) {
         }
     }
 }
-bool string_checker(string &str) {
-    bool validname = true;
-    for(char c : str) {
-        if(!isalpha(c)) {
-            validname = false;
-            break;
+string getWordInput(string prompt1, string prompt2) {
+    string input;
+    while(true) {
+        try {
+            cout << prompt1;
+            cin >> input;
+            for(char c : input) {
+                if(!isalpha(c)) {
+                    throw std::invalid_argument(prompt2);
+                }
+            }
+            return input;
+        }
+        catch (std::exception& e) {
+            clearInput();
+            cout << e.what() << endl;
+            continue;
         }
     }
-    if(!validname) {
-        cout << "Vardas ir pavarde turi buti sudaryti tik is raidziu. Pabandykite dar karta." << endl;
-        return false;
-    }
-    return true;
 }
