@@ -63,7 +63,23 @@ void rusiavimas(vector<studentas> &A, int sort_choice) {
         });
     }
 }
-
+string raide_choice(string prompt1) {
+    string choice;
+    while(true) {
+        try {
+            cin >> choice;
+            if(choice != "t" && choice != "T" && choice != "n" && choice != "N") {
+                throw std::runtime_error(prompt1);
+            }
+            return choice;
+        }
+        catch (std::exception& e) {
+            clearInput();
+            cout << e.what() << ": ";
+            continue;
+        }
+    }
+}
 bool string_checker(string &str) {
     bool validname = true;
     for(char c : str) {

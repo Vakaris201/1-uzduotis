@@ -24,6 +24,12 @@ struct studentas {
 };
 
 void clearInput();
+void vidurkis(studentas &S);
+void mediana(studentas &S);
+void rusiavimas(vector<studentas> &A, int sort_choice);
+bool string_checker(string &str);
+void outputas(vector<studentas> &A, int stud_skaicius);
+string raide_choice(string prompt1);
 
 template <typename T>
 bool compare(T &a,T &b) {
@@ -49,10 +55,5 @@ T getInput(string prompt1, string prompt2) {
         }
     }
 }
-void vidurkis(studentas &S);
-void mediana(studentas &S);
-void rusiavimas(vector<studentas> &A, int sort_choice);
-bool string_checker(string &str);
-void outputas(vector<studentas> &A, int stud_skaicius);
 
 #endif
