@@ -1,5 +1,7 @@
 #include <iostream>
 #include <algorithm>
+#include <fstream>
+#include <iomanip>
 #include <vector>
 #include <string>
 #include "Funkcijos.h"
@@ -9,6 +11,10 @@ using std::sort;
 using std::vector;
 using std::string;
 using std::endl;
+using std::left;
+using std::setw;
+using std::fixed;
+using std::setprecision;
 
 void clearInput() {
     cout << "Neteisinga ivestis. ";
@@ -30,12 +36,12 @@ void vidurkis(studentas &S) {
 }
 
 void mediana(studentas &S) {
+    double mediana;
     if (S.paz.empty()) {
         S.rez = S.egzam * EGZAM_kof;
     } 
     else {
         sort(S.paz.begin(), S.paz.end());
-        double mediana;
         if(S.paz.size() % 2 == 0) {
             mediana = (S.paz[S.paz.size() / 2 - 1] + S.paz[S.paz.size() / 2]) / 2.0;
         } 
@@ -63,6 +69,7 @@ void rusiavimas(vector<studentas> &A, int sort_choice) {
         });
     }
 }
+
 string raide_choice(string prompt1) {
     string choice;
     while(true) {
@@ -80,6 +87,7 @@ string raide_choice(string prompt1) {
         }
     }
 }
+
 string getWordInput(string prompt1, string prompt2) {
     string input;
     while(true) {
@@ -88,7 +96,7 @@ string getWordInput(string prompt1, string prompt2) {
             cin >> input;
             for(char c : input) {
                 if(!isalpha(c)) {
-                    throw std::invalid_argument(prompt2);
+                    throw std::runtime_error(prompt2);
                 }
             }
             return input;
@@ -100,3 +108,13 @@ string getWordInput(string prompt1, string prompt2) {
         }
     }
 }
+
+void print(std::ostream& os, int pasirinkimas, vector<studentas>& A, int stud_skaicius) {
+    os << left << setw(15) << "Vardas" << left << setw(20) << "Pavarde";
+    (pasirinkimas == 1)? os << setw(10) << "Galutinis (Vid.)" << endl : os << setw(10) << "Galutinis (Med.)" << endl;
+    for(int i = 0; i < stud_skaicius; i++) {
+        os << left << setw(15) << A[i].vardas << left << setw(20) << A[i].pavarde;
+        os << setw(10) << fixed << setprecision(2) << A[i].rez << endl;
+    }
+}
+

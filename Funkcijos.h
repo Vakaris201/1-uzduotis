@@ -30,6 +30,8 @@ void rusiavimas(vector<studentas> &A, int sort_choice);
 void outputas(vector<studentas> &A, int stud_skaicius);
 string raide_choice(string prompt1);
 string getWordInput(string prompt1, string prompt2);
+void print(std::ostream& os, int pasirinkimas, vector<studentas>& A, int stud_skaicius);
+
 
 template <typename T>
 bool compare(T &a,T &b) {

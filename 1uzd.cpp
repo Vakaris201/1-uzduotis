@@ -36,9 +36,11 @@ int main() {
     std::ios::sync_with_stdio(false);
     vector<studentas> A;
     int temp, stud_skaicius = 0, index = 0;
-    string f_choice, line;
+    string line, f_choice;
     cout << "Ar noretumet skaityti duomenis is failo? (t/n) ";
-    cin >> f_choice;
+    f_choice = raide_choice(
+        "Iveskite t arba n"
+    );
     if(f_choice == "t" || f_choice == "T") {
         string filename;
         while(true) {
@@ -99,13 +101,14 @@ int main() {
         while(true) {
             studentas S;
             if(eiga == 1 || eiga == 2) {
-                cout << "Iveskite varda ir pavarde: ";
-                cin >> S.vardas >> S.pavarde;
-                bool validname;
-                validname = string_checker(S.vardas);
-                if(!validname) continue;
-                validname = string_checker(S.pavarde);
-                if(!validname) continue;
+                S.vardas = getWordInput(
+                    "Iveskite varda: ",
+                    "Vardas turi buti sudarytas tik is raidziu."
+                );
+                S.pavarde = getWordInput(
+                    "Iveskite pavarde: ",
+                    "Pavarde turi buti sudaryta tik is raidziu."
+                );
             }
             else if(eiga == 3) {
                 zmogus z = gen();
@@ -122,10 +125,10 @@ int main() {
                     if(temp == 0) break;
                     S.paz.push_back(temp);
                 }
-                S.egzam = getInput<int,1,10>(
-                    "Iveskite egzamino pazymi: ", 
-                    "Iveskite skaiciu tarp 1 ir 10."
-                );
+            S.egzam = getInput<int,1,10>(
+                "Iveskite egzamino pazymi: ", 
+                "Iveskite skaiciu tarp 1 ir 10."
+            );
             }
             else if(eiga == 2 || eiga == 3) {
                 int paz_kiek;
@@ -142,24 +145,18 @@ int main() {
                 cout << "Sugeneruotas egzamino pazymys: " << S.egzam << endl;
             }
             A.push_back(S);
-            string choice;
+            string student_choice;
             while(true) {
                 if(index < stud_skaicius - 1) break;
                 else {
                     cout << "Ar noretumet ivesti dar viena studenta? (t/n) ";
-                    cin >> choice;
-                    if(choice == "t" || choice == "T") {
+                    student_choice = raide_choice(
+                        "Iveskite t arba n"
+                    );
+                    if(student_choice == "t" || student_choice == "T") {
                         stud_skaicius++;
-                        break;
                     }
-                    else if(choice == "n" || choice == "N") {
-                        break;
-                    }
-                    else {
-                        clearInput();
-                        cout << "Pabandykite dar karta." << endl;
-                        continue;
-                    }
+                    break;
                 }
             }
             index++;
@@ -179,7 +176,7 @@ void outputas(vector<studentas>& A, int stud_skaicius) {
             vidurkis(A[i]);
         }
     }
-    else if(pasirinkimas == 2) {
+    else {
         for(int i = 0; i < stud_skaicius; i++) {
             mediana(A[i]);
         }
@@ -197,37 +194,19 @@ void outputas(vector<studentas>& A, int stud_skaicius) {
     );
     auto start = high_resolution_clock::now();
     if(output_choice == 1) {
-        if(pasirinkimas == 1) {
-            cout << left << setw(15) << "Vardas" << left << setw(20) << "Pavarde" << setw(10) << "Galutinis (Vid.)" << endl;
-        }
-        else {
-            cout << left << setw(15) << "Vardas" << left << setw(20) << "Pavarde" << setw(10) << "Galutinis (Med.)" << endl;
-        }
-        for(int i = 0; i < stud_skaicius; i++) {
-            cout << left << setw(15) << A[i].vardas << left << setw(20) << A[i].pavarde;
-            cout << setw(10) << fixed << setprecision(2) << A[i].rez << endl;
-        }
+        print(cout, pasirinkimas, A, stud_skaicius);
         auto end = high_resolution_clock::now();
         duration<double> diff = end - start;
         cout << "Duomenu isvedimas uztruko: " << diff.count() << " sekundziu." << endl;
     }
     else {
         ofstream fout("rezultatai.txt");
-        if(pasirinkimas == 1) {
-            fout << left << setw(15) << "Vardas" << left << setw(20) << "Pavarde" << setw(10) << "Galutinis (Vid.)" << endl;
-        }
-        else {
-            fout << left << setw(15) << "Vardas" << left << setw(20) << "Pavarde" << setw(10) << "Galutinis (Med.)" << endl;
-        }
-        for(int i = 0; i < stud_skaicius; i++) {
-            fout << left << setw(15) << A[i].vardas << left << setw(20) << A[i].pavarde;
-            fout << setw(10) << fixed << setprecision(2) << A[i].rez << endl;
-        }
-        cout << "Rezultatai faile - rezultatai.txt" << endl;
+        print(fout, pasirinkimas, A, stud_skaicius);
         auto end = high_resolution_clock::now();
         duration<double> diff = end - start;
+        cout << "Rezultatai faile - rezultatai.txt" << endl;
         cout << "Duomenu isvedimas uztruko: " << diff.count() << " sekundziu." << endl;
-        fout.close();
     }
 }
+
 
