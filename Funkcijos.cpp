@@ -12,6 +12,7 @@ using std::vector;
 using std::string;
 using std::endl;
 using std::left;
+using std::right;
 using std::setw;
 using std::fixed;
 using std::setprecision;
@@ -118,3 +119,19 @@ void print(std::ostream& os, int pasirinkimas, vector<studentas>& A, int stud_sk
     }
 }
 
+void failu_generavimas(string filename) {
+    int pazymys;
+    int dydis = stoi(filename);
+    std::ofstream fout(filename);
+    fout << setw(16) << left << "Vardas" << setw(17) << left << "Pavarde" << setw(10) << "ND1" << setw(10) << "ND2" << setw(10) << "ND3" << setw(10) << "ND4" << setw(10) << "ND5" << setw(10) << "Egzaminas" << endl;
+    for(int i = 0; i < dydis; i++) {
+        fout <<  "Vardas" << setw(10) << left << i + 1 << "Pavarde" << setw(10) << left << i + 1;
+        for(int j = 0; j < 5; j++) {
+            pazymys = rand() % 10 + 1;
+            fout << setw(10) << left << pazymys;
+        }
+        pazymys = rand() % 10 + 1;
+        fout << setw(10) << left << pazymys << endl;
+    }
+    fout.close();
+}

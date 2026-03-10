@@ -86,12 +86,20 @@ int main() {
         cout << "2 - generuoti tik pazymius " << endl;
         cout << "3 - generuoti studentu vardus, pavardes ir pazymius " << endl;
         cout << "4 - baigti darba " << endl;
-        eiga = getInput<int,1,4>(
+        cout << "5 - failo generavimas " << endl;
+        eiga = getInput<int,1,5>(
             "Jusu pasirinkimas: ",
-            "Iveskite skaiciu nuo 1 iki 4."
+            "Iveskite skaiciu nuo 1 iki 5."
         );
         if(eiga == 4) {
             cout << "Darbas baigtas.";
+            return 0;
+        }
+        if(eiga == 5) {
+            string gen_failas;
+            cout << "Iveskite failo pavadinima: ";
+            cin >> gen_failas;
+            failu_generavimas(gen_failas + ".txt");
             return 0;
         }
         stud_skaicius = getInput<int,1>(

@@ -31,6 +31,7 @@ void outputas(vector<studentas> &A, int stud_skaicius);
 string raide_choice(string prompt1);
 string getWordInput(string prompt1, string prompt2);
 void print(std::ostream& os, int pasirinkimas, vector<studentas>& A, int stud_skaicius);
+void failu_generavimas(string filename);
 
 
 template <typename T>
