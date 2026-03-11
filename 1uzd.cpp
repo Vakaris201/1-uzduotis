@@ -31,18 +31,17 @@ using std::chrono::duration;
 
 
 int main() {
-    system("dir *.txt");
     srand(time(0));
+    system("dir *.txt");
     std::ios::sync_with_stdio(false);
     vector<studentas> A;
     int temp, stud_skaicius = 0, index = 0;
-    string line, f_choice;
+    string f_choice, filename;
     cout << "Ar noretumet skaityti duomenis is failo? (t/n) ";
     f_choice = raide_choice(
         "Iveskite t arba n"
     );
     if(f_choice == "t" || f_choice == "T") {
-        string filename;
         while(true) {
             cout << "Iveskite failo pavadinima: ";
             cin >> filename;
@@ -58,8 +57,9 @@ int main() {
                 continue;
             }
         }
-        ifstream fin(filename);
         A.reserve(1000000);
+        string line;
+        ifstream fin(filename);
         getline(fin, line);
         while(getline(fin, line)) {
             stringstream ss(line);
@@ -97,7 +97,7 @@ int main() {
         }
         if(eiga == 5) {
             string gen_failas;
-            cout << "Iveskite failo pavadinima: ";
+            cout << "Iveskite kiek irasu faile noretumet: ";
             cin >> gen_failas;
             failu_generavimas(gen_failas + ".txt");
             return 0;
@@ -192,11 +192,32 @@ void outputas(vector<studentas>& A, int stud_skaicius) {
     string divide_choice;
     cout << "Ar norite atskirti vargsiukus nuo kietiaku? (t/n) ";
     divide_choice = raide_choice(
-        "Iveskite t arba n."
+        "Iveskite t arba n"
     );
     int sort_choice;
     if(divide_choice == "t" || divide_choice == "T") {
-        
+        sort_choice = getInput<int,1,3>(
+            "Kaip surusiuoti rezultatus? (1 - pagal varda, 2 - pagal pavarde, 3 - pagal galutini bala) ",
+            "Iveskite 1, 2 arba 3."
+        );
+        rusiavimas(A, sort_choice);
+        vector<studentas> vargsiukai;
+        vector<studentas> kietiakai;
+        for(int i = 0; i < stud_skaicius; i++) {
+            if(A[i].rez < 5) {
+                vargsiukai.push_back(A[i]);
+            }
+            else {
+                kietiakai.push_back(A[i]);
+            }
+        }
+        ofstream v_fout("vargsiukai.txt");
+        ofstream k_fout("kietiakai.txt");
+        print(v_fout, grade_choice, vargsiukai, vargsiukai.size());
+        print(k_fout, grade_choice, kietiakai, kietiakai.size());
+        cout << "Vargsiukai ir kietiakai isskirti i atskirus failus: vargsiukai.txt ir kietiakai.txt" << endl;
+        v_fout.close();
+        k_fout.close();
     }
     else {
         sort_choice = getInput<int,1,3>(
