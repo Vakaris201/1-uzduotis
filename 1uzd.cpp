@@ -174,12 +174,12 @@ int main() {
     }
 }
 void outputas(vector<studentas>& A, int stud_skaicius) {
-    int pasirinkimas;
-    pasirinkimas = getInput<int,1,2>(
+    int grade_choice;
+    grade_choice = getInput<int,1,2>(
         "Isvesti vidurki ar mediana? (1 - vidurkis, 2 - mediana) ",
         "Iveskite 1 arba 2."
     );
-    if(pasirinkimas == 1) {
+    if(grade_choice == 1) {
         for(int i = 0; i < stud_skaicius; i++) {
             vidurkis(A[i]);
         }
@@ -189,31 +189,41 @@ void outputas(vector<studentas>& A, int stud_skaicius) {
             mediana(A[i]);
         }
     }
+    string divide_choice;
+    cout << "Ar norite atskirti vargsiukus nuo kietiaku? (t/n) ";
+    divide_choice = raide_choice(
+        "Iveskite t arba n."
+    );
     int sort_choice;
-    sort_choice = getInput<int,1,3>(
-        "Kaip surusiuoti rezultatus? (1 - pagal varda, 2 - pagal pavarde, 3 - pagal galutini bala) ",
-        "Iveskite 1, 2 arba 3."
-    );
-    rusiavimas(A, sort_choice);
-    int output_choice;
-    output_choice = getInput<int,1,2>(
-        "Kaip norite isvesti rezultatus? (1 - i ekrana, 2 - i faila) ",
-        "Iveskite 1 arba 2."
-    );
-    auto start = high_resolution_clock::now();
-    if(output_choice == 1) {
-        print(cout, pasirinkimas, A, stud_skaicius);
-        auto end = high_resolution_clock::now();
-        duration<double> diff = end - start;
-        cout << "Duomenu isvedimas uztruko: " << diff.count() << " sekundziu." << endl;
+    if(divide_choice == "t" || divide_choice == "T") {
+        
     }
     else {
-        ofstream fout("rezultatai.txt");
-        print(fout, pasirinkimas, A, stud_skaicius);
-        auto end = high_resolution_clock::now();
-        duration<double> diff = end - start;
-        cout << "Rezultatai faile - rezultatai.txt" << endl;
-        cout << "Duomenu isvedimas uztruko: " << diff.count() << " sekundziu." << endl;
+        sort_choice = getInput<int,1,3>(
+            "Kaip surusiuoti rezultatus? (1 - pagal varda, 2 - pagal pavarde, 3 - pagal galutini bala) ",
+            "Iveskite 1, 2 arba 3."
+        );
+        rusiavimas(A, sort_choice);
+        int output_choice;
+        output_choice = getInput<int,1,2>(
+            "Kaip norite isvesti rezultatus? (1 - i ekrana, 2 - i faila) ",
+            "Iveskite 1 arba 2."
+        );
+        auto start = high_resolution_clock::now();
+        if(output_choice == 1) {
+            print(cout, grade_choice, A, stud_skaicius);
+            auto end = high_resolution_clock::now();
+            duration<double> diff = end - start;
+            cout << "Duomenu isvedimas uztruko: " << diff.count() << " sekundziu." << endl;
+        }
+        else {
+            ofstream fout("rezultatai.txt");
+            print(fout, grade_choice, A, stud_skaicius);
+            auto end = high_resolution_clock::now();
+            duration<double> diff = end - start;
+            cout << "Rezultatai faile - rezultatai.txt" << endl;
+            cout << "Duomenu isvedimas uztruko: " << diff.count() << " sekundziu." << endl;
+        }
     }
 }
 
