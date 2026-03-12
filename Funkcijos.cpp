@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <vector>
 #include <string>
+#include <chrono>
 #include "Funkcijos.h"
 
 using std::cout;
@@ -16,6 +17,8 @@ using std::right;
 using std::setw;
 using std::fixed;
 using std::setprecision;
+using std::chrono::high_resolution_clock;
+using std::chrono::duration;
 
 void clearInput() {
     cout << "Neteisinga ivestis. ";
@@ -122,6 +125,7 @@ void print(std::ostream& os, int pasirinkimas, vector<studentas>& A, int stud_sk
 void failu_generavimas(string filename) {
     int pazymys;
     int dydis = stoi(filename);
+    auto start = high_resolution_clock::now();
     std::ofstream fout(filename);
     fout << setw(16) << left << "Vardas" << setw(17) << left << "Pavarde" << setw(10) << "ND1" << setw(10) << "ND2" << setw(10) << "ND3" << setw(10) << "ND4" << setw(10) << "ND5" << setw(10) << "Egzaminas" << endl;
     for(int i = 0; i < dydis; i++) {
@@ -134,4 +138,7 @@ void failu_generavimas(string filename) {
         fout << setw(10) << left << pazymys << endl;
     }
     fout.close();
+    auto end = high_resolution_clock::now();
+    duration<double> diff = end - start;
+    cout << "Failo generavimo laikas: " << diff.count() << endl;
 }
