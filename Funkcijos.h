@@ -27,7 +27,7 @@ void clearInput();
 void vidurkis(studentas &S);
 void mediana(studentas &S);
 void rusiavimas(vector<studentas> &A, int sort_choice);
-void outputas(vector<studentas> &A, int stud_skaicius, double test_time);
+void outputas(vector<studentas> &A, int stud_skaicius, double test_time, string filename);
 string raide_choice(string prompt1);
 string getWordInput(string prompt1, string prompt2);
 void print(std::ostream& os, int pasirinkimas, vector<studentas>& A, int stud_skaicius);

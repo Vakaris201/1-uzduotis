@@ -80,7 +80,7 @@ int main() {
         fin.close();
         auto end = high_resolution_clock::now();
         duration<double> diff = end - start;
-        outputas(A, stud_skaicius, diff.count());
+        outputas(A, stud_skaicius, diff.count(), filename);
     }
     else {
         int eiga;
@@ -175,10 +175,10 @@ int main() {
             index++;
             if(index >= stud_skaicius) break;
         }
-        outputas(A, stud_skaicius, 0);
+        outputas(A, stud_skaicius, 0, "");
     }
 }
-void outputas(vector<studentas>& A, int stud_skaicius, double test_time) {
+void outputas(vector<studentas>& A, int stud_skaicius, double test_time, string filename) {
     int grade_choice;
     grade_choice = getInput<int,1,2>(
         "Isvesti vidurki ar mediana? (1 - vidurkis, 2 - mediana) ",
@@ -236,12 +236,12 @@ void outputas(vector<studentas>& A, int stud_skaicius, double test_time) {
         duration<double> diff4 = end4 - start4;
         v_fout.close();
         k_fout.close();
-        cout << "Failo skaitymo laikas: " << test_time << endl;
-        cout << "Rusiavimo laikas: " << diff1.count() << endl;
-        cout << "Vargsiuku ir kietiaku atskyrimo laikas: " << diff2.count() << endl;
-        cout << "Vargsiuku isvedimo i faila laikas: " << diff3.count() << endl;
-        cout << "Kietiaku isvedimo i faila laikas: " << diff4.count() << endl;
-        cout << "Testu laikas: " << test_time + diff1.count() + diff2.count() + diff3.count() + diff4.count() << endl;
+        cout << filename << " Failo skaitymo laikas: " << test_time << endl;
+        cout << filename << " Rusiavimo laikas: " << diff1.count() << endl;
+        cout << filename << " Vargsiuku ir kietiaku atskyrimo laikas: " << diff2.count() << endl;
+        cout << filename << " Vargsiuku isvedimo i faila laikas: " << diff3.count() << endl;
+        cout << filename << " Kietiaku isvedimo i faila laikas: " << diff4.count() << endl;
+        cout << filename << " Testu laikas: " << test_time + diff1.count() + diff2.count() + diff3.count() + diff4.count() << endl;
     }
     else {
         sort_choice = getInput<int,1,3>(
