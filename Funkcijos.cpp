@@ -19,6 +19,7 @@ using std::fixed;
 using std::setprecision;
 using std::chrono::high_resolution_clock;
 using std::chrono::duration;
+using std::ofstream;
 
 void clearInput() {
     cout << "Neteisinga ivestis. ";
@@ -126,16 +127,14 @@ void failu_generavimas(string filename) {
     int pazymys;
     int dydis = stoi(filename);
     auto start = high_resolution_clock::now();
-    std::ofstream fout(filename);
+    ofstream fout(filename);
     fout << setw(16) << left << "Vardas" << setw(17) << left << "Pavarde" << setw(10) << "ND1" << setw(10) << "ND2" << setw(10) << "ND3" << setw(10) << "ND4" << setw(10) << "ND5" << setw(10) << "Egzaminas" << endl;
     for(int i = 0; i < dydis; i++) {
         fout <<  "Vardas" << setw(10) << left << i + 1 << "Pavarde" << setw(10) << left << i + 1;
         for(int j = 0; j < 5; j++) {
-            pazymys = rand() % 10 + 1;
-            fout << setw(10) << left << pazymys;
+            fout << setw(10) << left << rand() % 10 + 1;
         }
-        pazymys = rand() % 10 + 1;
-        fout << setw(10) << left << pazymys << endl;
+        fout << setw(10) << left << rand() % 10 + 1 << endl;
     }
     fout.close();
     auto end = high_resolution_clock::now();

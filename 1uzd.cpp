@@ -210,7 +210,9 @@ void outputas(vector<studentas>& A, int stud_skaicius, double test_time) {
         auto end1 = high_resolution_clock::now();
         duration<double> diff1 = end1 - start1;
         vector<studentas> vargsiukai;
+        vargsiukai.reserve(6000000);
         vector<studentas> kietiakai;
+        kietiakai.reserve(6000000);
         auto start2 = high_resolution_clock::now();
         for(int i = 0; i < stud_skaicius; i++) {
             if(A[i].rez < 5) {
