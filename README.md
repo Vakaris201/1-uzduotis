@@ -21,6 +21,9 @@
 31.503, 36.7362,  31.1814,  36.1731,  34.6367,             vidurkis: 34.04608
 ```
 
+![1tyrimas1](https://github.com/Vakaris201/Objektinis/blob/v0.4/nuotraukos/1tyrimas1.png?raw=true)
+![1tyrimas2](https://github.com/Vakaris201/Objektinis/blob/v0.4/nuotraukos/1tyrimas2.png?raw=true)
+
 2 tyrimas:
 
 1000:
@@ -32,6 +35,8 @@ Vargsiuku ir kietiaku atskyrimo laikas:  0.0001372,  0.0001375,  0.0001251
       Kietiaku isvedimo i faila laikas:  0.0014965,  0.0015703,  0.0021408
                           Testu laikas:  0.0039967,  0.0047714,  0.0043244
 ```
+![2tyrimas1](https://github.com/Vakaris201/Objektinis/blob/v0.4/nuotraukos/2tyrimas1.png?raw=true)
+
 10000:
 ```
                  Failo skaitymo laikas:  0.0075482,  0.0070109,  0.0070105
@@ -41,6 +46,8 @@ Vargsiuku ir kietiaku atskyrimo laikas:  0.0012237,  0.0009626,  0.0009972
       Kietiaku isvedimo i faila laikas:  0.0152534,  0.0138412,   0.013975
                           Testu laikas:  0.0415678,  0.0375418,  0.0439667
 ```
+![2tyrimas2](https://github.com/Vakaris201/Objektinis/blob/v0.4/nuotraukos/2tyrimas2.png?raw=true)
+
 100000:
 ```
                  Failo skaitymo laikas:  0.0697628,  0.0690002,  0.0688717
@@ -50,6 +57,8 @@ Vargsiuku ir kietiaku atskyrimo laikas:  0.0119887,  0.0110641,  0.0115848
       Kietiaku isvedimo i faila laikas:   0.135811,   0.136137,   0.136859
                           Testu laikas:   0.374186,   0.370643,   0.369018
 ```
+![2tyrimas3](https://github.com/Vakaris201/Objektinis/blob/v0.4/nuotraukos/2tyrimas3.png?raw=true)
+
 1000000:
 ```
                  Failo skaitymo laikas:  0.663516,   0.66256,   0.661653
@@ -59,6 +68,8 @@ Vargsiuku ir kietiaku atskyrimo laikas:  0.153574,  0.153131,   0.147417
       Kietiaku isvedimo i faila laikas:    1.4895,   1.31645,    1.31259
                           Testu laikas:   3.70599,   3.56746,    3.59824
 ```
+![2tyrimas4](https://github.com/Vakaris201/Objektinis/blob/v0.4/nuotraukos/2tyrimas4.png?raw=true)
+
 10000000:
 ```
                  Failo skaitymo laikas:  6.53674,  6.50271,  6.54028
@@ -68,3 +79,4 @@ Vargsiuku ir kietiaku atskyrimo laikas:  1.61612,  1.55005,  1.56051
       Kietiaku isvedimo i faila laikas:  13.2823,  13.0923,  13.0607
                           Testu laikas:  38.8906,  38.3797,  38.7084
 ```
+![2tyrimas5](https://github.com/Vakaris201/Objektinis/blob/v0.4/nuotraukos/2tyrimas5.png?raw=true)
