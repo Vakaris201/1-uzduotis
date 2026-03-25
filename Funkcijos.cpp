@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iomanip>
 #include <vector>
+#include <list>
 #include <string>
 #include <chrono>
 #include "Funkcijos.h"
@@ -10,6 +11,7 @@
 using std::cout;
 using std::sort;
 using std::vector;
+using std::list;
 using std::string;
 using std::endl;
 using std::left;
@@ -75,6 +77,24 @@ void rusiavimas(vector<studentas> &A, int sort_choice) {
     }
 }
 
+void rusiavimas(list<studentas> &A, int sort_choice) {
+    if(sort_choice == 1) {
+        A.sort([](studentas& a, studentas& b) {
+            return compare(a.vardas, b.vardas);
+        });
+    }
+    else if(sort_choice == 2) {
+        A.sort([](studentas& a, studentas& b) {
+            return compare(a.pavarde, b.pavarde);
+        });
+    }
+    else {
+        A.sort([](studentas& a, studentas& b) {
+            return compare(b.rez, a.rez);
+        });
+    }
+}
+
 string raide_choice(string prompt1) {
     string choice;
     while(true) {
@@ -120,6 +140,20 @@ void print(std::ostream& os, int pasirinkimas, vector<studentas>& A, int stud_sk
     for(int i = 0; i < stud_skaicius; i++) {
         os << left << setw(15) << A[i].vardas << left << setw(20) << A[i].pavarde;
         os << setw(10) << fixed << setprecision(2) << A[i].rez << endl;
+    }
+}
+
+void print(std::ostream& os, int pasirinkimas, list<studentas>& A, int stud_skaicius) {
+    os << left << setw(15) << "Vardas" << left << setw(20) << "Pavarde";
+    (pasirinkimas == 1)? os << setw(10) << "Galutinis (Vid.)" << endl : os << setw(10) << "Galutinis (Med.)" << endl;
+    int i = 0;
+    for(studentas& s : A) {
+        if(i >= stud_skaicius) {
+            break;
+        }
+        os << left << setw(15) << s.vardas << left << setw(20) << s.pavarde;
+        os << setw(10) << fixed << setprecision(2) << s.rez << endl;
+        i++;
     }
 }
 
