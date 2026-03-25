@@ -1,12 +1,12 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
-#include <vector>
+#include <deque>
 #include <algorithm> 
 #include <cctype>
 
 using std::string;
-using std::vector;
+using std::deque;
 using std::cout;
 using std::cin;
 using std::setw;
@@ -18,15 +18,15 @@ using std::setprecision;
 struct studentas {
     string vardas;
     string pavarde;
-    vector<int> paz;
+    deque<int> paz;
     int egzam;
     double rez;
 };
 
-void outputas(vector<studentas>& A, int m);
+void outputas(deque<studentas>& A, int m);
 
 int main() {
-    vector<studentas> A;
+    deque<studentas> A;
     int temp, sum, m = 0, x = 0;
     char testi;
     while(true) {
@@ -130,7 +130,7 @@ int main() {
     }
     outputas(A, m);
 }
-void outputas(vector<studentas>& A, int m) {
+void outputas(deque<studentas>& A, int m) {
     int pasirinkimas;
     while(true) {
         cout << "Isvesti vidurki ar mediana? (1 - vidurkis, 2 - mediana) ";
