@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iomanip>
 #include <vector>
+#include <deque>
 #include <list>
 #include <string>
 #include <chrono>
@@ -11,6 +12,7 @@
 using std::cout;
 using std::sort;
 using std::vector;
+using std::deque;
 using std::list;
 using std::string;
 using std::endl;
@@ -60,6 +62,24 @@ void mediana(studentas &S) {
 }
 
 void rusiavimas(vector<studentas> &A, int sort_choice) {
+    if(sort_choice == 1) {
+        sort(A.begin(), A.end(), [](studentas& a, studentas& b) {
+            return compare(a.vardas, b.vardas);
+        });
+    }
+    else if(sort_choice == 2) {
+        sort(A.begin(), A.end(), [](studentas& a, studentas& b) {
+            return compare(a.pavarde, b.pavarde);
+        });
+    }
+    else {
+        sort(A.begin(), A.end(), [](studentas& a, studentas& b) {
+            return compare(b.rez, a.rez);
+        });
+    }
+}
+
+void rusiavimas(deque<studentas> &A, int sort_choice) {
     if(sort_choice == 1) {
         sort(A.begin(), A.end(), [](studentas& a, studentas& b) {
             return compare(a.vardas, b.vardas);
@@ -135,6 +155,15 @@ string getWordInput(string prompt1, string prompt2) {
 }
 
 void print(std::ostream& os, int pasirinkimas, vector<studentas>& A, int stud_skaicius) {
+    os << left << setw(15) << "Vardas" << left << setw(20) << "Pavarde";
+    (pasirinkimas == 1)? os << setw(10) << "Galutinis (Vid.)" << endl : os << setw(10) << "Galutinis (Med.)" << endl;
+    for(int i = 0; i < stud_skaicius; i++) {
+        os << left << setw(15) << A[i].vardas << left << setw(20) << A[i].pavarde;
+        os << setw(10) << fixed << setprecision(2) << A[i].rez << endl;
+    }
+}
+
+void print(std::ostream& os, int pasirinkimas, deque<studentas>& A, int stud_skaicius) {
     os << left << setw(15) << "Vardas" << left << setw(20) << "Pavarde";
     (pasirinkimas == 1)? os << setw(10) << "Galutinis (Vid.)" << endl : os << setw(10) << "Galutinis (Med.)" << endl;
     for(int i = 0; i < stud_skaicius; i++) {
