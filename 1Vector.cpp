@@ -201,47 +201,93 @@ void outputas(vector<studentas>& A, int stud_skaicius, double test_time, string 
     );
     int sort_choice;
     if(divide_choice == "t" || divide_choice == "T") {
+        int strategija;
+        cout << "Kuria skaidymo strategija norite naudoti? " << endl;
+        cout << "1 - Du nauji konteineriai " << endl;
+        cout << "2 - Vienas naujas konteineris " << endl;
+        strategija = getInput<int,1,2>(
+            "Jusu pasirinkimas: ",
+            "Iveskite 1 arba 2."
+        );
         sort_choice = getInput<int,1,3>(
             "Kaip surusiuoti rezultatus? (1 - pagal varda, 2 - pagal pavarde, 3 - pagal galutini bala) ",
             "Iveskite 1, 2 arba 3."
         );
-        auto start1 = high_resolution_clock::now();
-        rusiavimas(A, sort_choice);
-        auto end1 = high_resolution_clock::now();
-        duration<double> diff1 = end1 - start1;
-        vector<studentas> vargsiukai;
-        vargsiukai.reserve(6000000);
-        vector<studentas> kietiakai;
-        kietiakai.reserve(6000000);
-        auto start2 = high_resolution_clock::now();
-        for(int i = 0; i < stud_skaicius; i++) {
-            if(A[i].rez < 5) {
-                vargsiukai.push_back(A[i]);
+        if(strategija == 1) {
+            auto start1 = high_resolution_clock::now();
+            rusiavimas(A, sort_choice);
+            auto end1 = high_resolution_clock::now();
+            duration<double> diff1 = end1 - start1;
+            vector<studentas> vargsiukai;
+            vector<studentas> kietiakai;
+            vargsiukai.reserve(6000000);
+            kietiakai.reserve(6000000);
+            auto start2 = high_resolution_clock::now();
+            for(int i = 0; i < stud_skaicius; i++) {
+                if(A[i].rez < 5) {
+                    vargsiukai.push_back(A[i]);
+                }
+                else {
+                    kietiakai.push_back(A[i]);
+                }
             }
-            else {
-                kietiakai.push_back(A[i]);
-            }
+            auto end2 = high_resolution_clock::now();
+            duration<double> diff2 = end2 - start2;
+            ofstream v_fout("vargsiukai.txt");
+            ofstream k_fout("kietiakai.txt");
+            auto start3 = high_resolution_clock::now();
+            print(v_fout, grade_choice, vargsiukai, vargsiukai.size());
+            auto end3 = high_resolution_clock::now();
+            duration<double> diff3 = end3 - start3;
+            auto start4 = high_resolution_clock::now();
+            print(k_fout, grade_choice, kietiakai, kietiakai.size());
+            auto end4 = high_resolution_clock::now();
+            duration<double> diff4 = end4 - start4;
+            v_fout.close();
+            k_fout.close();
+            cout << filename << " Failo skaitymo laikas: " << test_time << endl;
+            cout << filename << " Rusiavimo laikas: " << diff1.count() << endl;
+            cout << filename << " Vargsiuku ir kietiaku atskyrimo laikas: " << diff2.count() << endl;
+            cout << filename << " Vargsiuku isvedimo i faila laikas: " << diff3.count() << endl;
+            cout << filename << " Kietiaku isvedimo i faila laikas: " << diff4.count() << endl;
+            cout << filename << " Testu laikas: " << test_time + diff1.count() + diff2.count() + diff3.count() + diff4.count() << endl;
         }
-        auto end2 = high_resolution_clock::now();
-        duration<double> diff2 = end2 - start2;
-        ofstream v_fout("vargsiukai.txt");
-        ofstream k_fout("kietiakai.txt");
-        auto start3 = high_resolution_clock::now();
-        print(v_fout, grade_choice, vargsiukai, vargsiukai.size());
-        auto end3 = high_resolution_clock::now();
-        duration<double> diff3 = end3 - start3;
-        auto start4 = high_resolution_clock::now();
-        print(k_fout, grade_choice, kietiakai, kietiakai.size());
-        auto end4 = high_resolution_clock::now();
-        duration<double> diff4 = end4 - start4;
-        v_fout.close();
-        k_fout.close();
-        cout << filename << " Failo skaitymo laikas: " << test_time << endl;
-        cout << filename << " Rusiavimo laikas: " << diff1.count() << endl;
-        cout << filename << " Vargsiuku ir kietiaku atskyrimo laikas: " << diff2.count() << endl;
-        cout << filename << " Vargsiuku isvedimo i faila laikas: " << diff3.count() << endl;
-        cout << filename << " Kietiaku isvedimo i faila laikas: " << diff4.count() << endl;
-        cout << filename << " Testu laikas: " << test_time + diff1.count() + diff2.count() + diff3.count() + diff4.count() << endl;
+        else {
+            auto start1 = high_resolution_clock::now();
+            rusiavimas(A, sort_choice);
+            auto end1 = high_resolution_clock::now();
+            duration<double> diff1 = end1 - start1;
+            vector<studentas> vargsiukai;
+            vargsiukai.reserve(6000000);
+            auto start2 = high_resolution_clock::now();
+            for(int i = 0; i < A.size(); i++) {
+                if(A[i].rez < 5) {
+                    vargsiukai.push_back(A[i]);
+                    A.erase(A.begin() + i);
+                    i--;
+                }
+            }
+            auto end2 = high_resolution_clock::now();
+            duration<double> diff2 = end2 - start2;
+            ofstream v_fout("vargsiukai.txt");
+            ofstream k_fout("kietiakai.txt");
+            auto start3 = high_resolution_clock::now();
+            print(v_fout, grade_choice, vargsiukai, vargsiukai.size());
+            auto end3 = high_resolution_clock::now();
+            duration<double> diff3 = end3 - start3;
+            auto start4 = high_resolution_clock::now();
+            print(k_fout, grade_choice, A, A.size());   
+            auto end4 = high_resolution_clock::now();
+            duration<double> diff4 = end4 - start4;
+            v_fout.close();
+            k_fout.close();
+            cout << filename << " Failo skaitymo laikas: " << test_time << endl;
+            cout << filename << " Rusiavimo laikas: " << diff1.count() << endl;
+            cout << filename << " Vargsiuku ir kietiaku atskyrimo laikas: " << diff2.count() << endl;
+            cout << filename << " Vargsiuku isvedimo i faila laikas: " << diff3.count() << endl;
+            cout << filename << " Kietiaku isvedimo i faila laikas: " << diff4.count() << endl;
+            cout << filename << " Testu laikas: " << test_time + diff1.count() + diff2.count() + diff3.count() + diff4.count() << endl;
+        }
     }
     else {
         sort_choice = getInput<int,1,3>(
