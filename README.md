@@ -1,5 +1,6 @@
 
 KONTEINERIŲ TYRIMAS
+
 Vector konteineris:
 ```
 1000:
@@ -30,4 +31,28 @@ Vargsiuku ir kietiaku atskyrimo laikas:  1.61612,  1.55005,  1.56051        Vidu
 
 List konteineris:
 ```
+1000:
+                 Failo skaitymo laikas:  0.0011506,  0.0008903,  0.0014377  Vidurkis:  0.0011595
+                      Rusiavimo laikas:  0.0001287,  0.0002271,  0.0002016  Vidurkis:  0.0001858
+Vargsiuku ir kietiaku atskyrimo laikas:  0.0002094,  0.0002145,  0.0002903  Vidurkis:  0.0002381
 
+10000:
+                 Failo skaitymo laikas:  0.0084119,  0.0077728,   0.008404  Vidurkis:  0.0081962
+                      Rusiavimo laikas:  0.0012722,  0.0012303,  0.0011672  Vidurkis:  0.0012232
+Vargsiuku ir kietiaku atskyrimo laikas:  0.0014286,  0.0015187,  0.0014303  Vidurkis:  0.0014592
+
+100000:
+                 Failo skaitymo laikas:  0.0748777,  0.0749175,  0.0753437  Vidurkis:  0.0750463
+                      Rusiavimo laikas:  0.0162768,  0.0199001,  0.0219891  Vidurkis:  0.0193886
+Vargsiuku ir kietiaku atskyrimo laikas:  0.0191908,  0.0193874,  0.0187849  Vidurkis:   0.019121
+
+1000000:
+                 Failo skaitymo laikas:  0.714057,  0.720544,  0.717437     Vidurkis:  0.717346
+                      Rusiavimo laikas:  0.518293,  0.518757,  0.516026     Vidurkis:  0.517692
+Vargsiuku ir kietiaku atskyrimo laikas:  0.218728,  0.207242,  0.212711     Vidurkis:  0.212893
+
+10000000:
+                 Failo skaitymo laikas:  7.14775,  7.16515,  7.02466        Vidurkis:   7.11252
+                      Rusiavimo laikas:   10.135,  10.3215,  10.1698        Vidurkis:  10.20876
+Vargsiuku ir kietiaku atskyrimo laikas:  2.27642,  2.13911,  2.21721        Vidurkis:  2.210913
+```
