@@ -11,83 +11,83 @@ KONTEINERIŲ TYRIMAS
 Vector konteineris:
 ```
 1000:
-1 strategija | Vargsiuku ir kietiaku atskyrimo laikas:  0.0001372,  0.0001375,  0.0001251  Vidurkis:  0.0001333
-2 strategija | Vargsiuku ir kietiaku atskyrimo laikas:  0.0000738,  0.0001027,  0.0000707
-3 strategija | Vargsiuku ir kietiaku atskyrimo laikas:
+1 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0001372,  0.0001375,  0.0001251  Vidurkis:  0.0001333
+2 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0001196,  0.0001263,  0.0001322  Vidurkis:   0.000126
+3 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0000886,  0.0000791,  0.0000602  Vidurkis:  0.0000759
 
 10000:
-1 strategija | Vargsiuku ir kietiaku atskyrimo laikas:  0.0012237,  0.0009626,  0.0009972  Vidurkis:  0.0010611
-2 strategija | Vargsiuku ir kietiaku atskyrimo laikas:  0.0008311,  0.0006264,  0.0005947
-3 strategija | Vargsiuku ir kietiaku atskyrimo laikas:
+1 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0012237,  0.0009626,  0.0009972  Vidurkis:  0.0010611
+2 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0009038,  0.0009249,    0.00093  Vidurkis:  0.0009195
+3 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0003474,   0.000335,  0.0005716  Vidurkis:   0.000418
 
 100000:
-1 strategija | Vargsiuku ir kietiaku atskyrimo laikas:  0.0119887,  0.0110641,  0.0115848  Vidurkis:  0.0115458
-2 strategija | Vargsiuku ir kietiaku atskyrimo laikas:   0.006933,  0.0065681,  0.0082095
-3 strategija | Vargsiuku ir kietiaku atskyrimo laikas:
+1 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0119887,  0.0110641,  0.0115848  Vidurkis:  0.0115458
+2 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0099553,  0.0123872,  0.0125256  Vidurkis:  0.0116227
+3 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0045916,  0.0042005,  0.0042507  Vidurkis:  0.0043476
 
 1000000:
-1 strategija | Vargsiuku ir kietiaku atskyrimo laikas:   0.153574,   0.153131,   0.147417  Vidurkis:  0.151374
-2 strategija | Vargsiuku ir kietiaku atskyrimo laikas:  0.0900358,  0.0911967,  0.0914265
-3 strategija | Vargsiuku ir kietiaku atskyrimo laikas:
+1 strategija| Vargsiuku ir kietiaku atskyrimo laikas:  0.148257,   0.153131,   0.147417  Vidurkis:  0.1496016
+2 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0877348,  0.0853595,  0.0877479  Vidurkis:  0.0869474
+3 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0306239,  0.0303708,  0.0299182  Vidurkis:  0.0303043
 
 10000000:
-1 strategija | Vargsiuku ir kietiaku atskyrimo laikas:    1.61612,    1.55005,    1.56051  Vidurkis:   1.57556
-2 strategija | Vargsiuku ir kietiaku atskyrimo laikas:    1.02328,    1.01684,    1.03487
-3 strategija | Vargsiuku ir kietiaku atskyrimo laikas:
+1 strategija| Vargsiuku ir kietiaku atskyrimo laikas:   1.57156,    1.55005,    1.56051  Vidurkis:   1.560706
+2 strategija| Vargsiuku ir kietiaku atskyrimo laikas:  0.805137,   0.875178,   0.820083  Vidurkis:   0.833466
+3 strategija| Vargsiuku ir kietiaku atskyrimo laikas:   0.27601,   0.278601,   0.261707  Vidurkis:   0.272106
 ```
 
 List konteineris:
 ```
 1000:
-1 strategija | Vargsiuku ir kietiaku atskyrimo laikas:  0.0002094,  0.0002145,  0.0002903  Vidurkis:  0.0002381
-2 strategija | Vargsiuku ir kietiaku atskyrimo laikas:  0.0001326,  0.0001277,  0.0001134
-3 strategija | Vargsiuku ir kietiaku atskyrimo laikas:
+1 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0002094,  0.0002145,  0.0002903  Vidurkis:  0.0002381
+2 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0002078,  0.0001772,  0.0001645  Vidurkis:  0.0001831
+3 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0001433,   0.000134,  0.0001389  Vidurkis:  0.0001387
 
 10000:
-1 strategija | Vargsiuku ir kietiaku atskyrimo laikas:  0.0014286,  0.0015187,  0.0014303  Vidurkis:  0.0014592
-2 strategija | Vargsiuku ir kietiaku atskyrimo laikas:  0.0009071,  0.0010841,  0.0008886
-3 strategija | Vargsiuku ir kietiaku atskyrimo laikas:
+1 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0014286,  0.0015187,  0.0014303  Vidurkis:  0.0014592
+2 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0011375,  0.0011407,  0.0011289  Vidurkis:  0.0011357
+3 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0006402,  0.0007101,  0.0006785  Vidurkis:  0.0006762
 
 100000:
-1 strategija | Vargsiuku ir kietiaku atskyrimo laikas:  0.0191908,  0.0193874,  0.0187849  Vidurkis:   0.019121
-2 strategija | Vargsiuku ir kietiaku atskyrimo laikas:  0.0150578,  0.0134924,  0.0133289
-3 strategija | Vargsiuku ir kietiaku atskyrimo laikas:
+1 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0191908,  0.0193874,  0.0187849  Vidurkis:   0.019121
+2 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0115679,  0.0129729,  0.0130196  Vidurkis:  0.0125201
+3 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0113211,  0.0131957,  0.0130065  Vidurkis:  0.0125077
 
 1000000:
-1 strategija | Vargsiuku ir kietiaku atskyrimo laikas:   0.218728,   0.207242,   0.212711  Vidurkis:  0.212893
-2 strategija | Vargsiuku ir kietiaku atskyrimo laikas:   0.244058,   0.246898,   0.242926
-3 strategija | Vargsiuku ir kietiaku atskyrimo laikas:
+1 strategija| Vargsiuku ir kietiaku atskyrimo laikas:  0.213701,   0.207242,   0.212711  Vidurkis:   0.211218
+2 strategija| Vargsiuku ir kietiaku atskyrimo laikas:  0.188649,   0.191516,   0.195902  Vidurkis:  0.1920223
+3 strategija| Vargsiuku ir kietiaku atskyrimo laikas:  0.364145,   0.371598,   0.363272  Vidurkis:  0.3663383
 
 10000000:
-1 strategija | Vargsiuku ir kietiaku atskyrimo laikas:    2.27642,    2.13911,    2.21721  Vidurkis:  2.210913
-2 strategija | Vargsiuku ir kietiaku atskyrimo laikas:    2.78224,    2.68866,    2.67413
-3 strategija | Vargsiuku ir kietiaku atskyrimo laikas:
+1 strategija| Vargsiuku ir kietiaku atskyrimo laikas:   2.20826,    2.13911,    2.21721  Vidurkis:   2.188193
+2 strategija| Vargsiuku ir kietiaku atskyrimo laikas:   2.26362,    2.26219,    2.25458  Vidurkis:    2.26013
+3 strategija| Vargsiuku ir kietiaku atskyrimo laikas:   3.76198,    3.78391,    3.77868  Vidurkis:  3.7748566
 ```
 
 Deque konteineris:
 ```
 1000:
-1 strategija | Vargsiuku ir kietiaku atskyrimo laikas:  0.0001602,  0.0001296,  0.0001793  Vidurkis:  0.0001563
-2 strategija | Vargsiuku ir kietiaku atskyrimo laikas:   0.000079,  0.0000835,  0.0001211
-3 strategija | Vargsiuku ir kietiaku atskyrimo laikas:
+1 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0002724,  0.0002631,  0.0002183  Vidurkis:  0.0002512
+2 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0001522,  0.0001068,  0.0001201  Vidurkis:  0.0001263
+3 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0000913,  0.0000841,  0.0000906  Vidurkis:  0.0000886
 
 10000:
-1 strategija | Vargsiuku ir kietiaku atskyrimo laikas:  0.0011322,  0.0014522,  0.0009961  Vidurkis:  0.0011935
-2 strategija | Vargsiuku ir kietiaku atskyrimo laikas:  0.0006883,  0.0006893,  0.0006796
-3 strategija | Vargsiuku ir kietiaku atskyrimo laikas:
+1 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0017039,  0.0017368,  0.0017407  Vidurkis:  0.0017271
+2 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0009041,  0.0009066,  0.0010827  Vidurkis:  0.0009464
+3 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0005826,  0.0005059,  0.0004646  Vidurkis:  0.0005177
 
 100000:
-1 strategija | Vargsiuku ir kietiaku atskyrimo laikas:  0.0141873,  0.0134399,  0.0154184  Vidurkis:  0.0143485
-2 strategija | Vargsiuku ir kietiaku atskyrimo laikas:  0.0077238,  0.0082477,  0.0080383
-3 strategija | Vargsiuku ir kietiaku atskyrimo laikas:
+1 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0188441,  0.0168037,  0.0160086  Vidurkis:  0.0172188
+2 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0090145,  0.0090103,   0.009156  Vidurkis:  0.0090602
+3 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0063581,  0.0053733,  0.0056863  Vidurkis:  0.0058059
 
 1000000: 
-1 strategija | Vargsiuku ir kietiaku atskyrimo laikas:   0.166198,   0.168763,    0.17277  Vidurkis:  0.169243
-2 strategija | Vargsiuku ir kietiaku atskyrimo laikas:   0.110951,   0.110734,   0.112554
-3 strategija | Vargsiuku ir kietiaku atskyrimo laikas:
+1 strategija| Vargsiuku ir kietiaku atskyrimo laikas:   0.16816,   0.168763,   0.169429  Vidurkis:   0.168784 
+2 strategija| Vargsiuku ir kietiaku atskyrimo laikas: 0.0987044,    0.10094,  0.0978724  Vidurkis:  0.0991722
+3 strategija| Vargsiuku ir kietiaku atskyrimo laikas:  0.056636,  0.0561603,  0.0575465  Vidurkis:  0.0567809
 
 10000000:
-1 strategija | Vargsiuku ir kietiaku atskyrimo laikas:    1.84084,    1.90198,    1.75635  Vidurkis:  1.833056
-2 strategija | Vargsiuku ir kietiaku atskyrimo laikas:     1.2153,    1.30447,    1.19087
-3 strategija | Vargsiuku ir kietiaku atskyrimo laikas:
+1 strategija| Vargsiuku ir kietiaku atskyrimo laikas:   1.79851,    1.78005,    1.75635  Vidurkis:  1.7783033
+2 strategija| Vargsiuku ir kietiaku atskyrimo laikas:   1.17568,    1.30447,    1.03811  Vidurkis:  1.1727533
+3 strategija| Vargsiuku ir kietiaku atskyrimo laikas:  0.582763,   0.580105,   0.580581  Vidurkis:  0.5811496
 ```
