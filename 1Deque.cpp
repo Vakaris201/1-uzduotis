@@ -8,6 +8,7 @@
 #include <fstream>
 #include <sstream>
 #include <chrono>
+#include <iterator>
 #include <cstdlib>
 #include "Zmones.h"
 #include "Funkcijos.h"
@@ -204,9 +205,10 @@ void outputas(deque<studentas>& A, int stud_skaicius, double test_time, string f
         cout << "Kuria skaidymo strategija norite naudoti? " << endl;
         cout << "1 - Du nauji konteineriai " << endl;
         cout << "2 - Vienas naujas konteineris " << endl;
-        strategija = getInput<int,1,2>(
+        cout << "3 - Efektyvus darbus su konteineriais " << endl;
+        strategija = getInput<int,1,3>(
             "Jusu pasirinkimas: ",
-            "Iveskite 1 arba 2."
+            "Iveskite 1, 2 arba 3."
         );
         sort_choice = getInput<int,1,3>(
             "Kaip surusiuoti rezultatus? (1 - pagal varda, 2 - pagal pavarde, 3 - pagal galutini bala) ",
@@ -249,6 +251,42 @@ void outputas(deque<studentas>& A, int stud_skaicius, double test_time, string f
             cout << filename << " Kietiaku isvedimo i faila laikas: " << diff4.count() << endl;
             cout << filename << " Testu laikas: " << test_time + diff1.count() + diff2.count() + diff3.count() + diff4.count() << endl;
         }
+        else if (strategija == 2) {
+            auto start1 = high_resolution_clock::now();
+            rusiavimas(A, sort_choice);
+            auto end1 = high_resolution_clock::now();
+            duration<double> diff1 = end1 - start1;
+            deque<studentas> vargsiukai;
+            auto start2 = high_resolution_clock::now();
+            for(auto it = A.end(); it != A.begin();) {
+                it--;
+                if(it->rez < 5) {
+                    vargsiukai.push_back(*it);
+                    it = A.erase(it);
+                }
+            }
+            std::reverse(vargsiukai.begin(), vargsiukai.end());
+            auto end2 = high_resolution_clock::now();
+            duration<double> diff2 = end2 - start2;
+            ofstream v_fout("vargsiukai.txt");
+            ofstream k_fout("kietiakai.txt");
+            auto start3 = high_resolution_clock::now();
+            print(v_fout, grade_choice, vargsiukai, vargsiukai.size());
+            auto end3 = high_resolution_clock::now();
+            duration<double> diff3 = end3 - start3;
+            auto start4 = high_resolution_clock::now();
+            print(k_fout, grade_choice, A, A.size());   
+            auto end4 = high_resolution_clock::now();
+            duration<double> diff4 = end4 - start4;
+            v_fout.close();
+            k_fout.close();
+            cout << filename << " Failo skaitymo laikas: " << test_time << endl;
+            cout << filename << " Rusiavimo laikas: " << diff1.count() << endl;
+            cout << filename << " Vargsiuku ir kietiaku atskyrimo laikas: " << diff2.count() << endl;
+            cout << filename << " Vargsiuku isvedimo i faila laikas: " << diff3.count() << endl;
+            cout << filename << " Kietiaku isvedimo i faila laikas: " << diff4.count() << endl;
+            cout << filename << " Testu laikas: " << test_time + diff1.count() + diff2.count() + diff3.count() + diff4.count() << endl;
+        }
         else {
             auto start1 = high_resolution_clock::now();
             rusiavimas(A, sort_choice);
@@ -256,15 +294,15 @@ void outputas(deque<studentas>& A, int stud_skaicius, double test_time, string f
             duration<double> diff1 = end1 - start1;
             deque<studentas> vargsiukai;
             auto start2 = high_resolution_clock::now();
-            A.erase(std::remove_if(A.begin(), A.end(),
-                [&vargsiukai](studentas& s) {
-                    if(s.rez < 5) {
-                        vargsiukai.push_back(s);
-                        return true;
-                    }
-                    return false;
+            auto split_it = std::stable_partition(A.begin(), A.end(),
+                [](const studentas& s) {
+                    return s.rez >= 5;
                 }
-            ), A.end());
+            );
+            for(auto it = split_it; it != A.end(); it++) {
+                vargsiukai.push_back(std::move(*it));
+            }
+            A.erase(split_it, A.end());
             auto end2 = high_resolution_clock::now();
             duration<double> diff2 = end2 - start2;
             ofstream v_fout("vargsiukai.txt");
