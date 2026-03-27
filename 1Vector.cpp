@@ -260,13 +260,15 @@ void outputas(vector<studentas>& A, int stud_skaicius, double test_time, string 
             vector<studentas> vargsiukai;
             vargsiukai.reserve(6000000);
             auto start2 = high_resolution_clock::now();
-            for(int i = 0; i < A.size(); i++) {
-                if(A[i].rez < 5) {
-                    vargsiukai.push_back(A[i]);
-                    A.erase(A.begin() + i);
-                    i--;
+            A.erase(std::remove_if(A.begin(), A.end(),
+                [&vargsiukai](studentas& s) {
+                    if(s.rez < 5) {
+                        vargsiukai.push_back(s);
+                        return true;
+                    }
+                    return false;
                 }
-            }
+            ), A.end());
             auto end2 = high_resolution_clock::now();
             duration<double> diff2 = end2 - start2;
             ofstream v_fout("vargsiukai.txt");

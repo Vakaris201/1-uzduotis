@@ -256,13 +256,13 @@ void outputas(list<studentas>& A, int stud_skaicius, double test_time, string fi
             duration<double> diff1 = end1 - start1;
             list<studentas> vargsiukai;
             auto start2 = high_resolution_clock::now();
-            for(auto it = A.begin(); it != A.end();) {
-                if (it->rez < 5) {
-                    vargsiukai.push_back(*it);
-                    it = A.erase(it);
-                } 
-                else it++;
-            }
+            A.remove_if([&vargsiukai](studentas& s) {
+                if(s.rez < 5) {
+                    vargsiukai.push_back(s);
+                    return true;
+                }
+                return false;
+            });
             auto end2 = high_resolution_clock::now();
             duration<double> diff2 = end2 - start2;
             ofstream v_fout("vargsiukai.txt");
