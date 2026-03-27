@@ -1,3 +1,32 @@
+PALEIDIMO INSTRUKCIJA
+1) Atidarykite terminala projekto kataloge.
+2) Sugeneruokite build failus i build aplanka:
+```
+cmake -S . -B build
+```
+3) Sukompiliuokite programa:
+```
+cmake --build build
+```
+4) Ieikite i build aplanka:
+```
+cd build
+```
+5) Paleiskite norima programa:
+```
+./vector.exe
+```
+arba
+```
+./list.exe
+```
+arba
+```
+./deque.exe
+```
+5) Jei gaunate klaida, istrinkite build aplanka ir paleiskite 2-3 zingsnius is naujo.
+<br>
+
 TESTAVIMO PARAMETRAI: 
 
 CPU: AMD Ryzen AI 5340 w/Radeon 840M
