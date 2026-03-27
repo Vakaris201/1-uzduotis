@@ -154,3 +154,9 @@ Deque konteineris:
 ![D1.1](https://github.com/Vakaris201/Objektinis/blob/v1.0/nuotraukos/D1.1.png)
 ![D2.1](https://github.com/Vakaris201/Objektinis/blob/v1.0/nuotraukos/D2.1.png)
 ![D3.1](https://github.com/Vakaris201/Objektinis/blob/v1.0/nuotraukos/D3.1.png)
+
+TYRIMO ISVADOS:
+1) Is 3 konteineriu greiciausiai veikia vector.
+2) 3 strategija yra greiciausia, isskyrus konteineriui list.
+3) Konteineriui list geriausia rinktis 1 arba 2 strategija.
+4) Konteineris deque geras tarpinis variantas - greitesnis uz list, bet letesnis uz vector.
